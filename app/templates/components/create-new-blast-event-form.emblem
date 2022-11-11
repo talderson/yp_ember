@@ -1,0 +1,107 @@
+if isVisibleCreateNewForm
+    table.table.table-striped.responsive-table
+        tbody
+            tr.active.newRecord
+                td New blast event
+                td
+                td
+                td
+                th.add-new-item
+                    span.cancel-new.mr-1 click="'cancelNew' blastEvents"
+                        i.fa.fa-times aria-hidden="true"
+                        |  Cancel
+
+                    span.save-new click="'saveNew' blastEvents"
+                        i.fa.fa-check aria-hidden="true"
+                        |  Save
+            tr.details.newRecordDetails
+                td.td_details colspan="2"
+                    table.row_details.form-inline
+                        tbody
+                            tr
+                                td
+                                    label.col-12.col-form-label.bold for="timestamp" Timestamp:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            .datetime-picker-component
+                                                input type="datetime-local" step="1" oninput={action (mut timestamp) value="target.value"} id="timestamp"
+                                                //input.form-control.datetimepicker-input type="text" value=newBlastEventObject.timestamp oninput={action (mut newBlastEventObject.timestamp) value="target.value"} id="timestamp"
+                            tr
+                                td
+                                    label.col-12.col-form-label for="newBlastEventObjectLocation" Location:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            input.form-control type="text" value=newBlastEventObject.location oninput={action (mut newBlastEventObject.location) value="target.value"} id="newBlastEventObjectLocation"
+                            tr
+                                td
+                                    label.col-12.col-form-label for="newBlastEventObjectCoordinatesX" Coordinates:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            .row.no-gutters
+                                                .col-4
+                                                    input.form-control type="text" value=east oninput={action (mut east) value="target.value"} id="newBlastEventObjectEast"
+                                                .col-4
+                                                    input.form-control type="text" value=north oninput={action (mut north) value="target.value"} id="newBlastEventObjectNorth"
+                                                .col-4
+                                                    input.form-control type="text" value=depth oninput={action (mut depth) value="target.value"} id="newBlastEventObjectDepth"
+                            tr
+                                td
+                                    label.col-12.col-form-label for="newBlastEventObjectComments" Comments:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            textarea.form-control type="text" value=newBlastEventObject.comments oninput={action (mut newBlastEventObject.comments) value="target.value"} id="newBlastEventObjectComments"
+                            tr
+                                td
+                                    label.col-12.col-form-label for="newBlastEventObjectIsVisible" Is visible:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            label.custom-control.custom-checkbox.empty-checkbox-title.mr-sm-2
+                                                input type="checkbox" name=field checked=true class="custom-control-input" change={action (mut newBlastEventObject.isVisible) value="target.value"} id="newBlastEventObjectIsVisible"
+                                                span.custom-control-indicator
+                                                span.custom-control-description.noselect
+                td.td_details colspan="3"
+                    table.row_details.form-inline
+                        tbody
+                            tr
+                                td
+                                    label.col-12.col-form-label for="newBlastEventObjectDelay" Delay:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            .datetime-picker-component
+                                                input.form-control.datepicker-input type="time" step='1' value=newBlastEventObject.delay oninput={action (mut newBlastEventObject.delay) value="target.value"} id="delay"
+                            tr
+                                td
+                                    label.col-12.col-form-label for="newBlastEventObjectLevel" Level:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            input.form-control type="text" value=newBlastEventObject.level oninput={action (mut newBlastEventObject.level) value="target.value"} id="newBlastEventObjectLevel"
+                            tr
+                                td
+                                    label.col-12.col-form-label for="newBlastEventObjectStope" Stope:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            input.form-control type="text" value=newBlastEventObject.stope oninput={action (mut newBlastEventObject.stope) value="target.value"} id="newBlastEventObjectStope"
+                            tr
+                                td
+                                    label.col-12.col-form-label.bold for="newBlastEventObjectTonnes" Tonnes:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            input.form-control type="text" value=newBlastEventObject.tonnes oninput={action (mut newBlastEventObject.tonnes) value="target.value"} id="newBlastEventObjectTonnes"
+                            tr
+                                td
+                                    label.col-12.col-form-label.bold for="newBlastEventObjectBlastType" Blast type:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            select.form-control id="newBlastEventObjectBlastType" onchange={action (mut blastType) value="target.value"}
+                                                each selectOptionsArray as |selectOption|
+                                                    option selected={is-equal selectOption.key blastType} value="#{selectOption.key}" = selectOption.value

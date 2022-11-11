@@ -1,0 +1,11 @@
+<BsDropdown as |dd|>
+  <dd.button>{{@selected}}<span class="caret"></span></dd.button>
+  <dd.menu as |ddm|>
+      <ddm.item>
+        {{#link-to 'temporal-graphs.temporal-graph' instrumentId 'displacement-values' (query-params start_timestamp=null end_timestamp=null) class="dropdown-item"}}Tilt{{/link-to}}
+      </ddm.item>
+      <ddm.item>
+        {{#link-to 'temporal-graphs.temporal-graph' instrumentId 'velocity-values' (query-params start_timestamp=null end_timestamp=null) class="dropdown-item"}}Ang. Velocity{{/link-to}}
+      </ddm.item>
+  </dd.menu>
+</BsDropdown>

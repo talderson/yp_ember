@@ -1,0 +1,55 @@
+= page-title "Settings"
+= outlet
+
+.container-fluid
+    .mt-1
+        h3 Settings
+
+    table.table.table-striped.responsive-table.settings-table
+        thead
+            tr
+                th Name
+                th Value
+
+        tbody
+            tr
+                td.noWrap data-title="G-Mail Authorization"
+                    label.col-12.col-form-label G-Mail Authorization
+                td
+                    if authorized
+                        a href="./" onclick="javascript:event.target.port=8080" target="_blank" Re-Authorize
+                        a style="padding-left:5px;color:green" Authorized
+                    else
+                        a href="./" onclick="javascript:event.target.port=8080" target="_blank" Authorize
+                        a style="padding-left:5px;color:red" Unathorized
+            tr
+                td.noWrap data-title="Licence Keys"
+                    label.col-12.col-form-label Licence Keys
+                td
+                    = link-to "keys" | Update
+            each model as |setting|
+                if (eq setting.title 'ALERT_PASSWORD')
+                    tr
+                        td.noWrap data-title="#{setting.title}"
+                            label.col-12.col-form-label for="id" #{setting.title} *non-gmail
+                        td
+                            = single-save-input-password object=setting inputType="text" field="value"
+                if (eq setting.title 'ALERT_INTERVAL')
+                    tr
+                        td.noWrap data-title="#{settings.title}"
+                            label.col-12.col-form-label for="id" #{setting.title} (Minutes)
+                        td
+                            = single-save-input object=setting inputType="text" field="value"
+                if (eq setting.title 'ALERT_EMAIL')
+                    tr
+                        td.noWrap data-title="#{settings.title}"
+                            label.col-12.col-form-label for="id" #{setting.title}
+                        td
+                            = single-save-input object=setting inputType="text" field="value"
+                if (eq setting.title 'TIME_ZONE')
+                    tr
+                        td.noWrap data-title="#{setting.title}"
+                            label.col-12.col-form-label for="id" #{setting.title}
+                        td
+                            = single-save-select selectOptions=timeZones modelName="project-setting" isRelational=false selectOptionsKyes="id,title" object=setting parentObject=setting field='value' valueSource='value' inputFieldId='#{setting.title}'
+    .pb-1

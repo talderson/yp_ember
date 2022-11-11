@@ -1,0 +1,29 @@
+.custom-checkbox .custom-control-input:checked ~ .custom-control-indicator {
+    color: #fff !important;
+    background-color: $brand-primary !important;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E") !important;
+}
+
+.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+
+    > .col,
+    > [class*="col-"] {
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
+
+.text-left {
+    text-align: left;
+}
+.text-right {
+    text-align: right;
+}
+
+.custom-checkbox .custom-control-input:disabled:checked ~ .custom-control-indicator {
+    cursor: not-allowed;
+    background-color: #c3c3c3 !important;
+}
+

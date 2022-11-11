@@ -1,0 +1,7 @@
+div.form-group
+    label Quick search
+    div.input-group
+        input#quickTableFilter.form-control type="text" aria-describedby="emailHelp" placeholder="What?" value=searchValue oninput={action (mut value) value="target.value"}
+        span.input-group-btn
+            button.btn.btn-primary type="button" click="'updateProperty' 'searchValue' value"
+                | Search

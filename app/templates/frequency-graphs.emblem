@@ -1,0 +1,135 @@
+.container-fluid
+    .mt-1
+
+    .row
+        .col-sm-12 
+            h5 #{if displayData instrumentType} #{if displayData name} #{if displayData instrumentId}
+            h6 #{if displayData details}
+    .row
+        .col-sm-7
+            .form-group.pull-left.mr-1
+                label Select instrument
+                = searchable-select content=instruments selected=initialInstrumentSelection id="instrumentSelect" sortBy="title" prompt="Instrument ID" searchPrompt="Filter" isClearable=false on-change=(action "onUpdateTransitionTo")
+
+            .form-group.pull-left.mr-1
+                label Select chart
+                .dropdown
+                    button.btn.btn-secondary.dropdown-toggle type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        if instrumentId
+                            = chartDataValueName
+                        else
+                            | No instrument
+                    .dropdown-menu aria-labelledby="dropdownMenuButton"
+                        if instrumentId
+                            if bluVibe
+                                = link-to 'frequency-graphs.frequency-graph' instrumentId 'frequency-ppv' (query-params start_timestamp=null end_timestamp=null) class="dropdown-item"
+                                    | Frequency vs PPV
+                                = link-to 'frequency-graphs.frequency-graph' instrumentId 'frequency-ppa' (query-params start_timestamp=null end_timestamp=null) class="dropdown-item"
+                                    | Frequency vs PPA
+                        else
+                            a.dropdown-item.disabled href="#" Select instrument ID first
+
+            if instrumentId
+                .row
+                    .col-md-12
+                        label.custom-control.custom-checkbox.mr-sm-2 click="'toggleLocalProperty' 'adjust_scales'"
+                            = input type="checkbox" name="adjust_scales" class="custom-control-input" checked=adjust_scales
+                            span.custom-control-indicator
+                            span.custom-control-description.noselect Adjust Scales
+                if adjust_scales
+                    .row
+                        .col-md-5
+                            .form-group.d-inline-block
+                                .row.no-gutters
+                                    .col-md-12 style="padding-left:15px"
+                                        .row.no-gutters
+                                            label Primary Y-Axis
+                                            hr style="height: 2px; background: black;"
+                                        .row.no-gutters
+                                            label.custom-control.custom-checkbox.mr-sm-2 click="'toggleLocalProperty' 'auto_scale'"
+                                                = input type="checkbox" name="auto_scale" class="custom-control-input" checked=auto_scale
+                                                span.custom-control-indicator
+                                                span.custom-control-description.noselect Auto Scale
+                                    .row.no-gutters
+                                        .col-md-4
+                                            label.col-12.col-form-label.bold for="yMaxValue" Y-Max:
+                                        .col-md-4
+                                            input.form-control type="text" value=y_max oninput={action (mut y_max) value="target.value"} id="yScaleMax" disabled=auto_scale
+                                    .row.no-gutters
+                                        .col-md-4
+                                            label.col-12.col-form-label.bold for="yMinValue" Y-Min:
+                                        .col-md-4
+                                            input.form-control type="text" value=y_min oninput={action (mut y_min) value="target.value"} id="yScaleMin" disabled=auto_scale
+                .row
+                    = link-to 'frequency-graphs.frequency-graph' instrumentId modelName (query-params start_timestamp=null end_timestamp=null)
+                        | Reset zoom
+
+        if instrumentId
+            if (is-equal chartDataValueName 'Displacement')
+                .col-lg-5.pull-right
+                    .form-group.d-inline-block.pull-right
+                        if isWire
+                            .row.no-gutters
+                                .col-md-7
+                                    label 
+                                .col-md-5 
+                                    .form-group.mb-0.mr-05
+                                        label.custom-control.custom-checkbox.mr-sm-2 click="'toggleProperty' 'raw'"
+                                            = input type="checkbox" name="raw" checked=rawData class="custom-control-input"
+                                            span.custom-control-indicator
+                                            span.custom-control-description.noselect Raw data
+                        .row.no-gutters
+                            unless isWire
+                                .col-md-7
+                                    label 
+                            .col-md-5 style="width:100%"
+                                .form-group.mb-0.mr-05
+                                    label.custom-control.custom-checkbox.mr-sm-2 click="'toggleProperty' 'zeroed'"
+                                        = input type="checkbox" name="zeroed" checked=timeRef class="custom-control-input"
+                                        span.custom-control-indicator
+                                        span.custom-control-description.noselect Time ref
+                        .row.no-gutters
+                            if isWire
+                                .col-md-5 style="width:100%"
+                                    .form-group.mb-0.mr-05
+                                        if (is-equal refHeadPosition 'hac')
+                                            label.custom-control.custom-checkbox.mr-sm-2
+                                                = input type="checkbox" name="flip_signs" checked=true class="custom-control-input" disabled='disabled'
+                                                span.custom-control-indicator
+                                                span.custom-control-description.noselect Flip signs
+                                        else
+                                            label.custom-control.custom-checkbox.mr-sm-2 click="'toggleProperty' 'flip_signs'"
+                                                = input type="checkbox" name="flip_signs" checked=flipSigns class="custom-control-input"
+                                                span.custom-control-indicator
+                                                span.custom-control-description.noselect Flip signs
+
+                            else
+                                .col-md-5 style="width:100%"
+                                    .form-group.mb-0.mr-05
+                                        if (is-equal refHeadPosition 'hac')
+                                            label.custom-control.custom-checkbox.mr-sm-2
+                                                = input type="checkbox" name="flip_signs" checked=true class="custom-control-input" disabled='disabled'
+                                                span.custom-control-indicator
+                                                span.custom-control-description.noselect Flip signs
+                                        else
+                                            label.custom-control.custom-checkbox.mr-sm-2 click="'toggleProperty' 'flip_signs'"
+                                                = input type="checkbox" name="flip_signs" checked=flipSigns class="custom-control-input"
+                                                span.custom-control-indicator
+                                                span.custom-control-description.noselect Flip signs
+                        .row.no-gutters
+                            unless isWire
+                                .col-md-7 style="width:100%"
+                                    label Select ref. anchor
+                            if isWire
+                                .btn-toolbar.mr-05 role="toolbar" aria-label="Toolbar with button groups"
+                                    .btn-group.btn-group-sm role="group" aria-label="First group"
+                                        input type="button" class="btn btn-outline-primary" tagName="button" value="Temps" click="selectTemps"
+                                        input type="button" class="btn btn-outline-primary" tagName="button" value="Values" click="selectReadings"
+                            unless isWire
+                                .btn-toolbar.mr-05 role="toolbar" aria-label="Toolbar with button groups"
+                                    .btn-group.btn-group-sm role="group" aria-label="First group"
+                                        /= link-to 'frequency-graph.frequency-graph' instrumentId modelName (query-params ref_head_position="hat" ref_anchor="") class="btn btn-outline-primary" tagName="button" type="button" | toe
+                                        /= link-to 'frequency-graph.frequency-graph' instrumentId modelName (query-params ref_head_position="hac" ref_anchor="") class="btn btn-outline-primary" tagName="button" type="button" | collar
+                                        each instrumentAnchorsSorted as |anchor|
+                                            = link-to 'frequency-graphs.frequency-graph' instrumentId modelName (query-params ref_head_position="" ref_anchor=anchor.number) class="btn btn-outline-primary" tagName="button" type="button" | - #{anchor.number} -
+    = outlet

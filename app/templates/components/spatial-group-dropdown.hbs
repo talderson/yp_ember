@@ -1,0 +1,18 @@
+<BsDropdown as |dd|>
+  <dd.button>
+    {{#if groupTime}}
+      Frequency
+    {{else if groupWindow}}
+      Number of Samples
+    {{/if}}
+    <span class="caret"></span>
+  </dd.button>
+  <dd.menu as |ddm|>
+      <ddm.item>
+        {{#link-to 'spatial-graphs.spatial-graph' instrumentId modelName (query-params group_time=true group_window=false frequency_num=0 frequency='weekly') class="dropdown-item"}}Frequency{{/link-to}}
+      </ddm.item>
+      <ddm.item>
+        {{#link-to 'spatial-graphs.spatial-graph' instrumentId modelName (query-params group_time=false group_window=true frequency_num=50 frequency='') class="dropdown-item"}}Number of Samples{{/link-to}}
+      </ddm.item>
+  </dd.menu>
+</BsDropdown>

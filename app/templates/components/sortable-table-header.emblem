@@ -1,0 +1,14 @@
+= title
+if isSelectedSort
+    span.th-sort class={isSelectedSort:active} 
+        
+        if orderingAscending
+            % span.sort-icons.sort-asc aria-hidden="true" click={action 'sortBy' sortProperty true}
+                <FaIcon @icon="sort-up" />
+        else
+            % span.sort-icons.sort-desc aria-hidden="true" click={action 'sortBy' sortProperty false}
+                <FaIcon @icon="sort-down" />
+else
+    span.th-sort
+        % span.sort-icons aria-hidden="true" click={action 'sortBy' sortProperty true}
+            <FaIcon @icon="sort" />

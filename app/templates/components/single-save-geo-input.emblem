@@ -1,0 +1,29 @@
+.editable-field
+    .form-group.row
+        .col-12
+            if isEditing
+                .row.no-gutters
+                    .col-4
+                        input.form-control type="text" value=newEast oninput={action (mut newEast) value="target.value"} id="#east"
+                    .col-4
+                        input.form-control type="text" value=newNorth oninput={action (mut newNorth) value="target.value"} id="#north"
+                    .col-4
+                        input.form-control type="text" value=newDepth oninput={action (mut newDepth) value="target.value"} id="#depth"
+                span.save click="'save' object"
+                    i aria-hidden="true"
+                        <BsTooltip @title="Save" @placement="top" />
+                        <FaIcon @icon="check" />
+                span.cancel click="'cancel' object"
+                    i aria-hidden="true"
+                        <BsTooltip @title="Cancel" @placement="top" />
+                        <FaIcon @icon="times" />
+            else
+                if east
+                    span.text click="edit" {{'east:'}} {{east}}, {{'north:'}} {{north}}, {{'depth:'}} {{depth}}
+                        <BsTooltip @title="Edit" @placement="right" />
+                else
+                    span.text click="edit" {{'east:'}}, {{'north:'}}, {{'depth:'}}
+                        <BsTooltip @title="Edit" @placement="right" />
+
+
+

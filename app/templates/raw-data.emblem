@@ -1,0 +1,78 @@
+= page-title "Raw Data " @model.instrument.id
+.container-fluid id="raw-content"
+    = bread-crumbs
+    .mt-1
+        if permissionError
+            table style="width: 100%; margin-bottom: 1rem;" id="instrumentEditError"
+                tr.details
+                    td.td_details.error colspan="6" style="padding-top: 1rem; padding-bottom: 1rem;"
+                        label.col-12.col-form-label id="error_message_details" You do not have sufficent permissions.
+
+        h5 #{model.instrument.instrumentType.title} #{model.instrument.id}
+        .row
+            .col
+                label Rows
+                = raw-drop-down instrumentId=@model.instrument.id pageSize=@model.displacementValues.meta.pagination.page_size
+            if isWire
+                .col
+                    .row.no-gutters
+                        .col-3 style="margin-left: auto"
+                            .form-group.mb-0.mr-05
+                                tr
+                                    = radio-buttons setValue=(action 'toggleDataType' 'raw') type='Raw Data' checked="checked"
+                                tr
+                                    = radio-buttons setValue=(action 'toggleDataType' 'linear') type='Linear Data' checked=""
+                                tr           
+                                    = radio-buttons setValue=(action 'toggleDataType' 'calib') type='Calibrated Data' checked=""
+                                tr           
+                                    = radio-buttons setValue=(action 'toggleDataType' 'depth') type='Depth (Water)' checked=""
+
+        .row
+            .col
+                .mb-1
+                    button class="btn btn-sm mr-1 {{if isVisibleExportDataForm 'btn-primary' 'btn-secondary'}}" style="margin-top: 0.5rem; margin-bottom: 0.25rem" type="button" click="'toggleProperty' 'isVisibleExportDataForm'"
+                        <FaIcon @icon="upload" />
+                        | &nbsp; Export data
+                    button class="btn btn-sm mr-1 {{if isVisibleImportDataForm 'btn-primary' 'btn-secondary'}}" style="margin-top: 0.5rem; margin-bottom: 0.25rem" type="button" click="'toggleProperty' 'isVisibleImportDataForm'"
+                        <FaIcon @icon="download" />
+                        | &nbsp; Import data
+                    = data-export-form instrumentId=@model.instrument.id isVisibleExportDataForm=isVisibleExportDataForm 
+                    = data-import-form instrumentId=@model.instrument.id isVisibleImportDataForm=isVisibleImportDataForm
+
+        .row
+            .col-sm-12
+                if (eq @model.instrument.instrumentTypeID 1)
+                    = pack/raw-data instrument=@model.instrument headAts=@model.headAts displacementData=@model.displacementValues temperatureData=@model.temperatureValues setProp=(action 'updateProperty')
+                if (eq @model.instrument.instrumentTypeID 2)
+                    = cable/raw-data instrument=@model.instrument headAts=@model.headAts displacementData=@model.displacementValues temperatureData=@model.temperatureValues setProp=(action 'updateProperty')
+                if (eq @model.instrument.instrumentTypeID 3)
+                    = rebar/raw-data instrument=@model.instrument headAts=@model.headAts displacementData=@model.displacementValues temperatureData=@model.temperatureValues setProp=(action 'updateProperty')
+                if (eq @model.instrument.instrumentTypeID 4)
+                    = pack/raw-data instrument=@model.instrument headAts=@model.headAts displacementData=@model.displacementValues temperatureData=@model.temperatureValues setProp=(action 'updateProperty')
+                if (eq @model.instrument.instrumentTypeID 5)
+                    = pack/raw-data instrument=@model.instrument headAts=@model.headAts displacementData=@model.displacementValues temperatureData=@model.temperatureValues setProp=(action 'updateProperty')
+                if (eq @model.instrument.instrumentTypeID 6)
+                    = tilt/raw-data instrument=@model.instrument headAts=@model.headAts displacementData=@model.displacementValues temperatureData=@model.temperatureValues setProp=(action 'updateProperty')
+                if (eq @model.instrument.instrumentTypeID 7)
+                    = slough/raw-data instrument=@model.instrument headAts=@model.headAts displacementData=@model.displacementValues temperatureData=@model.temperatureValues setProp=(action 'updateProperty')
+                if (eq @model.instrument.instrumentTypeID 8)
+                    = thermo/raw-data instrument=@model.instrument headAts=@model.headAts displacementData=@model.displacementValues temperatureData=@model.temperatureValues setProp=(action 'updateProperty')
+                if (eq @model.instrument.instrumentTypeID 9)
+                    = piezo/raw-data instrument=@model.instrument headAts=@model.headAts displacementData=@model.displacementValues temperatureData=@model.temperatureValues setProp=(action 'updateProperty')
+                if (eq @model.instrument.instrumentTypeID 10)
+                    = hid/raw-data instrument=@model.instrument headAts=@model.headAts displacementData=@model.displacementValues temperatureData=@model.temperatureValues setProp=(action 'updateProperty')
+                if (eq @model.instrument.instrumentTypeID 11)
+                    = pack/raw-data instrument=@model.instrument headAts=@model.headAts displacementData=@model.displacementValues temperatureData=@model.temperatureValues setProp=(action 'updateProperty')
+                if (eq @model.instrument.instrumentTypeID 12)
+                    = wire/raw-data instrument=@model.instrument headAts=@model.headAts displacementData=@model.displacementValues temperatureData=@model.temperatureValues setProp=(action 'updateProperty') depth=depth calib=calib linear=linear
+                if (eq @model.instrument.instrumentTypeID 13) 
+                    = adict/raw-data instrument=@model.instrument headAts=@model.headAts displacementData=@model.displacementValues temperatureData=@model.temperatureValues setProp=(action 'updateProperty')
+                if (eq @model.instrument.instrumentTypeID 14)
+                    | Analog
+                if (eq @model.instrument.instrumentTypeID 15)
+                    = vibe/raw-data instrument=@model.instrument headAts=@model.headAts displacementData=@model.displacementValues temperatureData=@model.temperatureValues setProp=(action 'updateProperty')
+                if (eq @model.instrument.instrumentTypeID 16)
+                    = micro/raw-data instrument=@model.instrument headAts=@model.headAts displacementData=@model.displacementValues temperatureData=@model.temperatureValues setProp=(action 'updateProperty')
+
+
+        = outlet

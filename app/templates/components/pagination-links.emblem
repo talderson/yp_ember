@@ -1,0 +1,37 @@
+if paginationLinks
+    nav aria-label="Page navigation"
+        ul.pagination
+            if firstPageLink
+                li.page-item
+                    = link-to params=firstPageLink class="page-link" aria-label="Previous"
+                        | 1
+                        // span aria-hidden=true
+                        //     | &laquo;
+                        // span.sr-only
+                        //     | Previous
+
+                li.page-item.disabled
+                    a.page-link href="#" ...
+
+            = each-in paginationLinks as |key value|
+                li class="page-item {{active-class (is-equal value.linkName currentPage)}}"
+                    = link-to params=value.params class="page-link"
+                        value.linkName
+
+            if lastPageLink
+                li.page-item.disabled
+                    a.page-link href="#" ...
+
+                li.page-item
+                    = link-to params=lastPageLink class="page-link" aria-label="Next"
+                        totalPages
+                        // span aria-hidden=true
+                        //     | &raquo;
+                        // span.sr-only
+                        //     | Next
+
+            if (gt totalPages 10)
+                li.page-item
+                    input size="2" class="page-link" placeholder="Page #" oninput={action (mut newPage) value="target.value"}
+                li.page-item
+                    button  class="page-link" click="goToPage" style="color:#fff;background-color:#4A6A9C;" Go 

@@ -1,0 +1,38 @@
+if isVisibleExportDataForm
+    table.table.table-striped.responsive-table
+        tbody
+            tr.active.newRecord
+                td Export instrument data to file
+                td
+                td
+                td
+                th.add-new-item
+                    span.cancel-new click="cancel"
+                        i.fa.fa-times aria-hidden="true"
+                        |  Cancel
+
+            tr.details.newRecordDetails
+                td.td_details colspan="1"
+                    table.row_details.form-inline
+                        tbody
+                            tr
+                                td
+                                    label.col-12.col-form-label.bold for="file_format" File format:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            select.form-control id="file_format" onchange={action (mut fileFormat) value="target.value"}
+                                                each fileFormats as |fileFormat|
+                                                    option selected={is-equal fileFormat.key fileFormat} value="#{fileFormat.key}" = fileFormat.value
+                td.td_details colspan="3"
+                    table.row_details.form-inline
+                        tbody
+                            tr
+                                td
+                                    label.col-12.col-form-label for="newBlastEventObjectDelay" File link:
+                                td
+                                    p.mb-0
+                                        a.exportDataFileLink click="downloadFile" style="cursor: pointer" #{fileName}
+                td width="50px" colspan="1"
+                    if loading
+                        div class="pulse_loader"

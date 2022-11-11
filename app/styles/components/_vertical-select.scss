@@ -1,0 +1,85 @@
+.vertical-select {
+    position: relative;
+    @extend .reset_list_style;
+    margin-left: 3.5rem;
+    padding-left: 5px;
+    &:before {
+        content: "";
+        display: block;
+        top: -10px;
+        bottom: -10px;
+        left: -15px;
+        position: absolute;
+        background: #b3b3b3;
+        width: 2px;
+    }
+    li {
+        margin: .5rem 0;
+        position: relative;
+        &:before {
+            content: "";
+            display: block;
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: #b3b3b3;
+            position: absolute;
+            left: -24px;
+            top: .4rem;
+        }
+        &.active {
+            &:after {
+                box-sizing: border-box;
+                display: inline;
+                font-size: 13px;
+                line-height: 1;
+                color: $bright-orange;
+                content: "\25C4";
+                position: absolute;
+                text-align: center;
+                left: -4px;
+                @extend .v_centered_abs_pos;
+            }
+        }
+        .inner {
+            border: 1px solid #b3b3b3;
+            display: inline-block;
+            border-radius: 3px;
+            a {
+                padding: 0rem .2rem;
+                border-left: 1px solid #b3b3b3;
+                &:first-child {
+                    border-left: none;
+                }
+            }
+        }
+        &.active, &:hover {
+            &:before {
+                background: $bright-orange;
+            }
+            .inner {
+                border-color: $bright-orange;
+                a {
+                    &.active, &:hover {
+                        color: #fff;
+                        background: $bright-orange;
+                        &, + a {
+                            border-color: $bright-orange;
+                        }
+                    }
+                }
+            }
+        }
+        a {
+            @extend .noselect;
+            text-decoration: none;
+            display: inline-block;
+            color: #373a3c;
+            &:focus {
+                outline: none !important;
+                border-color: none;
+                box-shadow: none;
+            }
+        }
+    }
+}

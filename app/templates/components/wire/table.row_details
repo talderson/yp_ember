@@ -1,0 +1,196 @@
+table.row_details
+    tbody style="display:contents"
+        tr
+            td.td_details colspan="2" style="vertical-align:top"
+                table.row_details.form-inline
+                    tbody 
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectName" Name:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        input.form-control type="text" value=newInstrumentObject.Name oninput={action (mut newInstrumentObject.name) value="target.value"} id="newInstrumentObjectName"
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectProject" Project:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        input.form-control type="text" value=newInstrumentObject.project oninput={action (mut newInstrumentObject.project) value="target.value"} id="newInstrumentObjectProject"
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectLocation" Location:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        input.form-control type="text" value=newInstrumentObject.location oninput={action (mut newInstrumentObject.location) value="target.value"} id="newInstrumentObjectLocation"
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectCoordinates" Coordinates:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        .row.no-gutters
+                                            .col-4
+                                                input.form-control type="text" value=newInstrumentObject.east oninput={action (mut newInstrumentObject.east) value="target.value"} id="newInstrumentObjectEast"
+                                            .col-4
+                                                input.form-control type="text" value=newInstrumentObject.north oninput={action (mut newInstrumentObject.north) value="target.value"} id="newInstrumentObjectNorth"
+                                            .col-4
+                                                input.form-control type="text" value=newInstrumentObject.depth oninput={action (mut newInstrumentObject.depth) value="target.value"} id="newInstrumentObjectDepth"
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectAzimuth" Azimuth:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        input.form-control type="text" value=newInstrumentObject.azimuth oninput={action (mut newInstrumentObject.azimuth) value="target.value"} id="newInstrumentObjectAzimuth"
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectDip" Dip:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        input.form-control type="text" value=newInstrumentObject.dip oninput={action (mut newInstrumentObject.dip) value="target.value"} id="newInstrumentObjectDip"
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectLevel" Level:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        input.form-control type="text" value=newInstrumentObject.level oninput={action (mut newInstrumentObject.level) value="target.value"} id="newInstrumentObjectLevel"
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectBorehole" Borehole:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        input.form-control type="text" value=newInstrumentObject.borehole oninput={action (mut newInstrumentObject.borehole) value="target.value"} id="newInstrumentObjectBorehole"
+
+            td.td_details colspan="3" style="vertical-align:top"
+                table.row_details.form-inline
+                    tbody
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectZeroTimestamp" Zero timestamp:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        .datetime-picker-component
+                                            input type="datetime-local" step="1" oninput={action (mut zeroTimestamp) value="target.value"} id="zeroTimestamp"
+                                            
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectInstallDate" Install date:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        .datetime-picker-component
+                                            input type="datetime-local" step="1" oninput={action (mut installDate) value="target.value"} id="installDate"
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectInstalledBy" Installed by:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        input.form-control type="text" value=newInstrumentObject.installedBy oninput={action (mut newInstrumentObject.installedBy) value="target.value"} id="newInstrumentObjectInstalledBy"
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectPurpose" Purpose:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        input.form-control type="text" value=newInstrumentObject.purpose oninput={action (mut newInstrumentObject.purpose) value="target.value"} id="newInstrumentObjectPurpose"
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectNotes" Notes:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        textarea.form-control type="text" value=newInstrumentObject.notes oninput={action (mut newInstrumentObject.notes) value="target.value"} id="newInstrumentObjectNotes"
+        tr.details
+            td.td_details colspan="2" style="vertical-align: top;"
+                table.row_details.form-inline
+                    tbody
+                        tr
+                            td
+                                label.col-xs-12.col-form-label for="vwvendor" Instrument Vendor:
+                            td.input
+                                select.form-control id="instrumentVendor" onchange={action 'setVendor' value="target.value"}
+                                    each vwVendors as |selectOption|
+                                        option value="#{selectOption.id}" = selectOption.vendorName
+            td.td_details colspan="2" style="vertical-align: top;"
+                table.row_details.form-inline
+                    tbody
+                        tr
+                            td
+                                label.col-xs-12.col-form-label for="vwmodel" Instrument Model:
+                            td.input
+                                select.form-control id="instrumentModel" onchange={action 'setModel' value="target.value"}
+                                    option value=""
+                                        | Select
+                                    each modelList as |selectOption|
+                                        option value="#{selectOption.id}" = selectOption.modelName
+        tr.details
+            td.td_details colspan="2" style="vertical-align: top;"
+                if isTypeGeoPt
+                    table style="width: 100%"
+                        tbody
+                            tr.details
+                                td.td_details colspan="4" style="vertical-align: top;"
+                                    table.row_details.form-inline
+                                        tbody
+                                            tr
+                                                td
+                                                    label.col-12.col-form-label for="calcCoef1" G (kPa/digit) =
+                                                td.input
+                                                    input.form-control type="text" onchange={action (action 'setValue' 'calCoef1') value='target.value'} id="serial"
+                                                td
+                                                    label.col-12.col-form-label for="calcCoef3" R<sub>0</sub> (digits) =
+                                                td.input
+                                                    input.form-control type="text" onchange={action (action 'setValue' 'calCoef3') value='target.value'} id="serial"
+                                            tr
+                                                td
+                                                    label.col-12.col-form-label for="calcCoef2" K (kPa/&deg;C) =
+                                                td.input
+                                                    input.form-control type="text" onchange={action (action 'setValue' 'calCoef2') value='target.value'} id="serial"
+                                                td
+                                                    label.col-12.col-form-label for="calcCoef4" T<sub>0</sub> (&deg;C) =
+                                                td.input
+                                                    input.form-control type="text" onchange={action (action 'setValue' 'calCoef4') value='target.value'} id="serial"
+
+                if isTypeRocPws
+                    table style="width: 100%"
+                        tbody
+                            tr.details
+                                td.td_details colspan="4" style="vertical-align: top;"
+                                    table.row_details.form-inline
+                                        tbody
+                                            tr
+                                                td
+                                                    label.col-12.col-form-label for="calcCoef1" A =
+                                                td.input
+                                                    input.form-control type="text" onchange={action (action 'setValue' 'calcCoef1') value='target.value'} id="serial"
+                                                td
+                                                    label.col-12.col-form-label for="calcCoef4" C<sub>t</sub> (kPa/&deg;C) =
+                                                td.input
+                                                    input.form-control type="text" onchange={action (action 'setValue' 'calcCoef4') value='target.value'} id="serial"
+                                            tr
+                                                td
+                                                    label.col-12.col-form-label for="calcCoef2" B =
+                                                td.input
+                                                    input.form-control type="text" onchange={action (action 'setValue' 'calcCoef2') value='target.value'} id="serial"
+                                                td
+                                                    label.col-12.col-form-label for="calcCoef4" T<sub>0</sub> (&deg;C) =
+                                                td.input
+                                                    input.form-control type="text" onchange={action (action 'setValue' 'calcCoef5') value='target.value'} id="serial"
+                                            tr
+                                                td
+                                                    label.col-12.col-form-label for="calcCoef4" L<sub>0</sub> (Linear Units) =
+                                                td.input
+                                                    input.form-control type="text" onchange={action (action 'setValue' 'calcCoef3') value='target.value'} id="serial"
+
+        tr
+            td.add-new-item id="add-new" colspan="3" style="padding-bottom:5px"
+                span.add-new click="createInstrument"
+                    |  Create

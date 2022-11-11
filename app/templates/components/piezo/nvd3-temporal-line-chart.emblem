@@ -1,0 +1,7 @@
+.nvd3-chart-tooltip-container id=chartId
+    %svg.nvd3-temporal-line-chart-svg width="1100" height="450"
+
+    .mb-1
+
+.nvd3-chart-tooltip-container id=chartId style="width:92%"
+    %svg.nvd3-temporal-line-chart-focus-svg width="1100" height="70"

@@ -1,0 +1,120 @@
+if isVisibleCreateNewForm
+    table.table.table-striped.responsive-table
+        tbody
+            tr.active.newRecord
+                td New seismic event
+                td
+                td
+                td
+                th.add-new-item
+                    span.cancel-new.mr-1 click="'cancelNew' seismicEvents"
+                        i.fa.fa-times aria-hidden="true"
+                        |  Cancel
+
+                    span.save-new click="'saveNew' seismicEvents"
+                        i.fa.fa-check aria-hidden="true"
+                        |  Save
+            tr.details.newRecordDetails
+                td.td_details colspan="2"
+                    table.row_details.form-inline
+                        tbody
+                            tr
+                                td
+                                    label.col-12.col-form-label.bold for="timestamp" Timestamp:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            .datetime-picker-component
+                                                input type="datetime-local" step="1" oninput={action (mut timestamp) value="target.value"} id="timestamp"
+                                                //input.form-control.datetimepicker-input type="text" value=newSeismicEventObject.timestamp oninput={action (mut newSeismicEventObject.timestamp) value="target.value"} id="timestamp"
+                            tr
+                                td
+                                    label.col-12.col-form-label for="newSeismicEventObjectLocation" Location:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            input.form-control type="text" value=newSeismicEventObject.location oninput={action (mut newSeismicEventObject.location) value="target.value"} id="newSeismicEventObjectLocation"
+                            tr
+                                td
+                                    label.col-12.col-form-label for="newSeismicEventObjectCoordinatesX" Coordinates:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            .row.no-gutters
+                                                .col-4
+                                                    input.form-control type="text" value=east oninput={action (mut east) value="target.value"} id="newSeismicEventObjectEast"
+                                                .col-4
+                                                    input.form-control type="text" value=north oninput={action (mut north) value="target.value"} id="newSeismicEventObjectNorth"
+                                                .col-4
+                                                    input.form-control type="text" value=depth oninput={action (mut depth) value="target.value"} id="newSeismicEventObjectDepth"
+                            tr
+                                td
+                                    label.col-12.col-form-label for="newSeismicEventObjectComments" Comments:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            textarea.form-control type="text" value=newSeismicEventObject.comments oninput={action (mut newSeismicEventObject.comments) value="target.value"} id="newSeismicEventObjectComments"
+                            tr
+                                td
+                                    label.col-12.col-form-label for="newSeismicEventObjectIsVisible" Is visible:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            label.custom-control.custom-checkbox.empty-checkbox-title.mr-sm-2
+                                                input type="checkbox" name=field checked=true class="custom-control-input" change={action (mut newSeismicEventObject.isVisible) value="target.value"} id="newSeismicEventObjectIsVisible"
+                                                span.custom-control-indicator
+                                                span.custom-control-description.noselect
+                            tr
+                                td
+                                    label.col-12.col-form-label.bold for="newSeismicEventObjectMomentMagnitude" Moment magnitude:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            input.form-control type="text" value=newSeismicEventObject.momentMagnitude oninput={action (mut newSeismicEventObject.momentMagnitude) value="target.value"} id="newSeismicEventObjectMomentMagnitude"
+                td.td_details colspan="3"
+                    table.row_details.form-inline
+                        tbody
+                            tr
+                                td
+                                    label.col-12.col-form-label for="newSeismicEventObjectSeismicMoment" Seismic moment:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            input.form-control type="text" value=newSeismicEventObject.seismicMoment oninput={action (mut newSeismicEventObject.seismicMoment) value="target.value"} id="newSeismicEventObjectSeismicMoment"
+                            tr
+                                td
+                                    label.col-12.col-form-label for="newSeismicEventObjectSourceRadius" Source radius:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            input.form-control type="text" value=newSeismicEventObject.sourceRadius oninput={action (mut newSeismicEventObject.sourceRadius) value="target.value"} id="newSeismicEventObjectSourceRadius"
+                            tr
+                                td
+                                    label.col-12.col-form-label for="newSeismicEventObjectPeakParticleVelocity" Peak particle velocity:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            input.form-control type="text" value=newSeismicEventObject.peakParticleVelocity oninput={action (mut newSeismicEventObject.peakParticleVelocity) value="target.value"} id="newSeismicEventObjectPeakParticleVelocity"
+                            tr
+                                td
+                                    label.col-12.col-form-label for="newSeismicEventObjectPeakParticleAcceleration" Peak particle acceleration:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            input.form-control type="text" value=newSeismicEventObject.peakParticleAcceleration oninput={action (mut newSeismicEventObject.peakParticleAcceleration) value="target.value"} id="newSeismicEventObjectPeakParticleAcceleration"
+                            tr
+                                td
+                                    label.col-12.col-form-label for="newSeismicEventObjectEnergy" Energy:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            input.form-control type="text" value=newSeismicEventObject.energy oninput={action (mut newSeismicEventObject.energy) value="target.value"} id="newSeismicEventObjectEnergy"
+                            tr
+                                td
+                                    label.col-12.col-form-label.bold for="newSeismicEventObjectSeismicType" Seismic type:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            select.form-control id="newSeismicEventObjectSeismicType" onchange={action (mut seismicType) value="target.value"}
+                                                each selectOptionsArray as |selectOption|
+                                                    option selected={is-equal selectOption.key seismicType} value="#{selectOption.key}" = selectOption.value

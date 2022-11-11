@@ -1,0 +1,9 @@
+= outlet
+
+.mb-1
+    = bread-crumbs
+    .row
+        .col-md-12
+            = vibe/nvd3-frequency-line-chart fullRangeChartData=model.fullRangeData zoomChartData=model.zoomData zoomTempData=model.zoomTempData raw=raw instrument=model.instrument chartData=model.graphs seismicEvents=model.seismicEvents blastEvents=model.blastEvents flipSigns=flip_signs autoAxis=auto_scale axis_min=y_min axis_max=y_max updateProperties=(action "updateProperties") getQueryParams=(action "getQueryParams") setChart=(action "setChart") setData=(action "setData")
+
+.mb-1

@@ -1,0 +1,104 @@
+.container-fluid
+    = bread-crumbs
+    .mt-1
+    .row
+        .col-sm-9
+            .row
+                .col
+                    h5 #{if displayData instrumentType} #{if displayData name} #{if displayData instrumentId}
+                    h6 #{if displayData details}
+                    if isThermo
+                        label Thermostrings show the Temperature channel from the head as anchor 0.
+            .row.no-gutters
+                .col-sm-auto
+                    .form-group.pull-left.mr-1
+                        label Select Chart
+                        .dropdown
+                            = spatial-chart-dropdown selected=chartDataValueName instrumentType=instrumentTypeId instrumentId=instrumentId
+                if groupTime
+                    .col-sm-auto
+                        .form-group.pull-left.mr-05
+                            label Group By
+                            .dropdown
+                                = spatial-group-dropdown instrumentId=instrumentId modelName=modelName groupTime=groupTime  groupWindow=groupWindow
+                if groupWindow
+                    .col-sm-auto
+                        .form-group.pull-left.mr-05
+                            label Group By
+                            .dropdown
+                                = spatial-group-dropdown instrumentId=instrumentId modelName=modelName groupTime=groupTime  groupWindow=groupWindow
+                if groupTime
+                    .col-sm-auto
+                        .form-group.pull-left.mr-05
+                            label &nbsp;
+                            .dropdown
+                                = spatial-time-dropdown instrumentId=instrumentId modelName=modelName frequencySelect=frequencySelect 
+                if groupWindow
+                    .col-sm-auto
+                        .form-group.pull-left.mr-05
+                            label &nbsp;
+                            .dropdown
+                                = spatial-window-dropdown instrumentId=instrumentId modelName=modelName frequencySelect=frequencySelect 
+                .col-sm-auto
+                    .form-group.pull-left.mr-1
+                        label Event type
+                        .dropdown
+                            = spatial-event-dropdown instrumentId=instrumentId modelName=modelName eventType=eventType
+                if (is-equal eventType "blast")
+                    .col-sm-auto
+                        .form-group.pull-left.mr-1
+                            label Blast type
+                            .dropdown
+                                = spatial-blast-dropdown instrumentId=instrumentId modelName=modelName blastType=blastType
+                if (is-equal eventType "seismic")
+                    .col-sm-auto
+                        .form-group.pull-left.mr-1
+                            label Seismic type
+                            .dropdown
+                                = spatial-seismic-dropdown instrumentId=instrumentId modelName=modelName seismicType=seismicType
+            .row
+                .col
+                    = link-to 'temporal-graphs.temporal-graph' instrumentId modelName (query-params start_timestamp=null end_timestamp=null)
+                        | Reset zoom
+
+        .col-sm-3
+            .form-group.mb-0.mr-05.pull-right
+                if instrumentId
+                    if (is-equal chartDataValueName 'Displacement')
+                        .row
+                            .col
+                                label.custom-control.custom-checkbox.mr-sm-2 click="'toggleProperty' 'zeroed'"
+                                    = input type="checkbox" name="zeroed" checked=timeRef class="custom-control-input"
+                                    span.custom-control-indicator
+                                    span.custom-control-description.noselect Time ref
+                        .row
+                            .col
+                                if (is-equal refHeadPosition 'hac')
+                                    label.custom-control.custom-checkbox.mr-sm-2
+                                        = input type="checkbox" name="flip_signs" checked=true class="custom-control-input" disabled='disabled'
+                                        span.custom-control-indicator
+                                        span.custom-control-description.noselect Flip signs
+                                else
+                                    label.custom-control.custom-checkbox.mr-sm-2 click="'toggleProperty' 'flip_signs'"
+                                        = input type="checkbox" name="flip_signs" checked=flipSigns class="custom-control-input"
+                                        span.custom-control-indicator
+                                        span.custom-control-description.noselect Flip signs
+                        .row
+                            .col
+                                label Select ref. anchor
+                                .btn-toolbar.mr-05 role="toolbar" aria-label="Toolbar with button groups"
+                                    .btn-group.btn-group-sm role="group" aria-label="First group"
+                                        /= link-to 'spatial-graphs.spatial-graph' instrumentId modelName (query-params ref_head_position="hat" ref_anchor="") class="btn btn-outline-primary" tagName="button" type="button" | toe
+                                        /= link-to 'spatial-graphs.spatial-graph' instrumentId modelName (query-params ref_head_position="hac" ref_anchor="") class="btn btn-outline-primary" tagName="button" type="button" | collar
+                                        each instrumentAnchorsSorted as |anchor|
+                                            = link-to 'spatial-graphs.spatial-graph' instrumentId modelName (query-params ref_head_position="" ref_anchor=anchor.number) class="btn btn-outline-primary nowrap" tagName="button" type="button" | - #{anchor.number} -
+                    if (is-equal chartDataValueName 'Temperature')
+                        .row
+                            .col
+                                label.custom-control.custom-checkbox.mr-sm-2 click="'toggleProperty' 'zeroed'"
+                                    = input type="checkbox" name="zeroed" checked=timeRef class="custom-control-input"
+                                    span.custom-control-indicator
+                                    span.custom-control-description.noselect Time ref
+    .row
+        .col-sm-12
+            = outlet

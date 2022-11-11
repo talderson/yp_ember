@@ -1,0 +1,297 @@
+.container-fluid
+    //input type="button" id="capButton" click="saveImage" value="Save"
+    = bread-crumbs
+    .mt-1            
+    .row
+        .col-sm-6
+            .row
+                .col
+                    h5 #{if displayData instrumentType} #{if displayData name} #{if displayData instrumentId}
+                    h6 #{if displayData details}
+                    if isThermo
+                        label Thermostrings show the Temperature channel from the head as anchor 0.
+            .row.no-gutters
+                .col-sm-auto
+                    .form-group.pull-left.mr-1
+                        label Select Chart
+                        .dropdown
+                            = temporal-chart-dropdown selected=chartDataValueName instrumentType=instrumentTypeId instrumentId=instrumentId
+                if isVelocityGraph
+                    .col-sm-auto
+                        .form-group.pull-left.mr-05
+                            label Group By
+                            .dropdown
+                                = temporal-group-dropdown instrumentId=instrumentId modelName=modelName window=window
+                .col-sm-auto
+                    .form-group.pull-left.mr-1
+                        label Event type
+                        .dropdown
+                            = temporal-event-dropdown instrumentId=instrumentId modelName=modelName eventType=eventType
+                if bluVibeEvent
+                    .col-sm-auto
+                        .form-group.pull-left.mr-1
+                            label Select BluVibe
+                            = searchable-select content=vibes selected=vibeSelection id="vibeSelect" sortBy="title" prompt="BluVibe ID" searchPrompt="Filter" isClearable=false on-change=(action "onUpdateTransitionToVibe")
+                if bluVibe
+                    .col-sm-auto
+                        .form-group.pull-left.mr-05
+                            label Group Window
+                            .dropdown
+                                = temporal-window-dropdown instrumentId=instrumentId modelName=modelName frequency=frequency
+
+                if (is-equal eventType "blast")
+                    .col-sm-auto
+                        .form-group.pull-left.mr-1
+                            label Blast type
+                            .dropdown
+                                = temporal-blast-dropdown instrumentId=instrumentId modelName=modelName blastType=blastType
+                if (is-equal eventType "seismic")
+                    .col-sm-auto
+                        .form-group.pull-left.mr-1
+                            label Seismic type
+                            .dropdown
+                                = temporal-seismic-dropdown instrumentId=instrumentId modelName=modelName seismicType=seismicType
+            if instrumentId
+                .row
+                    .col
+                        label.custom-control.custom-checkbox.mr-sm-2
+                            = input type="checkbox" name="adjust_scales"  click="'toggleLocalProperty' 'adjust_scales'" class="custom-control-input" checked=adjust_scales 
+                            span.custom-control-indicator
+                            span.custom-control-description.noselect Adjust Scales
+                if adjust_scales
+                    .row
+                        .col-md-5
+                            .form-group.d-inline-block
+                                .row.no-gutters
+                                    .col-md-12 style="padding-left:15px"
+                                        .row.no-gutters
+                                            label Primary Y-Axis
+                                            hr style="height: 2px; background: black;"
+                                        .row.no-gutters
+                                            label.custom-control.custom-checkbox.mr-sm-2 
+                                                = input type="checkbox" name="auto_scale" class="custom-control-input" checked=auto_scale click="'toggleLocalProperty' 'auto_scale'"
+                                                span.custom-control-indicator 
+                                                span.custom-control-description.noselect Auto Scale
+                                    .row.no-gutters
+                                        .col-md-4
+                                            label.col-12.col-form-label.bold for="yMaxValue" Y-Max:
+                                        .col-md-4
+                                            input.form-control type="text" value=y_max oninput={action (mut y_max) value="target.value"} id="yScaleMax" disabled=auto_scale
+                                    .row.no-gutters
+                                        .col-md-4
+                                            label.col-12.col-form-label.bold for="yMinValue" Y-Min:
+                                        .col-md-4
+                                            input.form-control type="text" value=y_min oninput={action (mut y_min) value="target.value"} id="yScaleMin" disabled=auto_scale
+                        .col-md-5
+                            .form-group.d-inline-block
+                                .row.no-gutters
+                                    .col-md-12 style="padding-left:15px"
+                                        .row.no-gutters
+                                            label Secondary Y-Axis
+                                            hr style="height: 2px; background: black;"
+                                        .row.no-gutters
+                                            label.custom-control.custom-checkbox.mr-sm-2 
+                                                = input type="checkbox" name="auto_scale_2" class="custom-control-input" checked=auto_scale_2 click="'toggleLocalProperty' 'auto_scale_2'"
+                                                span.custom-control-indicator
+                                                span.custom-control-description.noselect Auto Scale
+                                    .row.no-gutters
+                                        .col-md-4
+                                            label.col-12.col-form-label.bold for="yMaxValue" Y-Max:
+                                        .col-md-4
+                                            input.form-control type="text" value=y_max_2 oninput={action (mut y_max_2) value="target.value"} id="yScaleMax2" disabled=auto_scale_2
+                                    .row.no-gutters
+                                        .col-md-4
+                                            label.col-12.col-form-label.bold for="yMinValue" Y-Min:
+                                        .col-md-4
+                                            input.form-control type="text" value=y_min_2 oninput={action (mut y_min_2) value="target.value"} id="yScaleMin2" disabled=auto_scale_2
+            .row
+                .col
+                    = link-to 'temporal-graphs.temporal-graph' instrumentId modelName (query-params start_timestamp=null end_timestamp=null)
+                        | Reset zoom
+        .col
+            .form-group.mb-0.mr-05.pull-right
+                td style="padding-right: 2rem;"
+                    if isWire
+                        tr
+                            = radio-buttons setValue=(action 'toggleDataType' 'raw') type='Raw Data' checked=rawChecked
+                        tr
+                            = radio-buttons setValue=(action 'toggleDataType' 'linear') type='Linear Data' checked=linearChecked
+                        tr           
+                            = radio-buttons setValue=(action 'toggleDataType' 'calib') type='Calibrated Data' checked=calibChecked
+                        tr           
+                            = radio-buttons setValue=(action 'toggleDataType' 'depth') type='Depth (Water)' checked=depthChecked
+                            
+                td
+                    if instrumentId
+                        if (is-equal chartDataValueName 'Displacement')
+                            .row
+                                .col
+                                    label.custom-control.custom-checkbox.mr-sm-2 click="'toggleProperty' 'zeroed'"
+                                        = input type="checkbox" name="zeroed" checked=timeRef class="custom-control-input"
+                                        span.custom-control-indicator
+                                        span.custom-control-description.noselect Time ref
+                            .row
+                                .col
+                                    if isWire
+                                        if (is-equal refHeadPosition 'hac')
+                                            label.custom-control.custom-checkbox.mr-sm-2
+                                                = input type="checkbox" name="flip_signs" checked=true class="custom-control-input" disabled='disabled'
+                                                span.custom-control-indicator
+                                                span.custom-control-description.noselect Flip signs
+                                        else
+                                            label.custom-control.custom-checkbox.mr-sm-2 click="'toggleProperty' 'flip_signs'"
+                                                = input type="checkbox" name="flip_signs" checked=flipSigns class="custom-control-input"
+                                                span.custom-control-indicator
+                                                span.custom-control-description.noselect Flip signs
+                                    else
+                                        if (is-equal refHeadPosition 'hac')
+                                            label.custom-control.custom-checkbox.mr-sm-2
+                                                = input type="checkbox" name="flip_signs" checked=true class="custom-control-input" disabled='disabled'
+                                                span.custom-control-indicator
+                                                span.custom-control-description.noselect Flip signs
+                                        else
+                                            label.custom-control.custom-checkbox.mr-sm-2 click="'toggleProperty' 'flip_signs'"
+                                                = input type="checkbox" name="flip_signs" checked=flipSigns class="custom-control-input"
+                                                span.custom-control-indicator
+                                                span.custom-control-description.noselect Flip signs
+                            .row
+                                .col
+                                    label Select ref. anchor
+                                    .btn-toolbar.mr-05 role="toolbar" aria-label="Toolbar with button groups"
+                                        .btn-group.btn-group-sm role="group" aria-label="First group"
+                                            /= link-to 'temporal-graphs.temporal-graph' instrumentId modelName (query-params ref_head_position="hat" ref_anchor="") class="btn btn-outline-primary" tagName="button" type="button" | toe
+                                            /= link-to 'temporal-graphs.temporal-graph' instrumentId modelName (query-params ref_head_position="hac" ref_anchor="") class="btn btn-outline-primary" tagName="button" type="button" | collar
+                                            each instrumentAnchorsSorted as |anchor|
+                                                = link-to 'temporal-graphs.temporal-graph' instrumentId modelName (query-params ref_head_position="" ref_anchor=anchor.number) class="btn btn-outline-primary nowrap" tagName="button" type="button" | - #{anchor.number} -
+                        
+                        
+                        
+                        if (is-equal chartDataValueName 'Tilt')
+                            .row
+                                .col
+                                    label
+                            .row
+                                .col
+                                    label.custom-control.custom-checkbox.mr-sm-2 click="'toggleProperty' 'zeroed'"
+                                        = input type="checkbox" name="zeroed" checked=timeRef class="custom-control-input"
+                                        span.custom-control-indicator
+                                        span.custom-control-description.noselect Time ref
+                            .row
+                                .col
+                                    label.custom-control.custom-checkbox.mr-sm-2 click="'toggleProperty' 'flip_signs'"
+                                        = input type="checkbox" name="flip_signs" checked=flipSigns class="custom-control-input"
+                                        span.custom-control-indicator
+                                        span.custom-control-description.noselect Flip signs
+                        if (is-equal chartDataValueName 'Stretch')
+                            .row
+                                .col
+                                    label
+                            .row
+                                .col
+                                    label.custom-control.custom-checkbox.mr-sm-2 click="'toggleProperty' 'zeroed'"
+                                        = input type="checkbox" name="zeroed" checked=timeRef class="custom-control-input"
+                                        span.custom-control-indicator
+                                        span.custom-control-description.noselect Time ref
+                            .row
+                                .col
+                                    if (is-equal refHeadPosition 'hac')
+                                        label.custom-control.custom-checkbox.mr-sm-2
+                                            = input type="checkbox" name="flip_signs" checked=true class="custom-control-input" disabled='disabled'
+                                            span.custom-control-indicator
+                                            span.custom-control-description.noselect Flip signs
+                                    else
+                                        label.custom-control.custom-checkbox.mr-sm-2 click="'toggleProperty' 'flip_signs'"
+                                            = input type="checkbox" name="flip_signs" checked=flipSigns class="custom-control-input"
+                                            span.custom-control-indicator
+                                            span.custom-control-description.noselect Flip signs
+                            .row
+                                .col
+                                    label Select ref. anchor
+                                    .btn-toolbar.mr-05 role="toolbar" aria-label="Toolbar with button groups"
+                                        .btn-group.btn-group-sm role="group" aria-label="First group"
+                                            each instrumentAnchorsSorted as |anchor|
+                                                = link-to 'temporal-graphs.temporal-graph' instrumentId modelName (query-params ref_head_position="" ref_anchor=anchor.number) class="btn btn-outline-primary" tagName="button" type="button" | - #{anchor.number} -
+                        if (is-equal chartDataValueName 'Axial Displacement')
+                            .row
+                                .col
+                                    label
+                            .row
+                                .col
+                                    label.custom-control.custom-checkbox.mr-sm-2 click="'toggleProperty' 'zeroed'"
+                                        = input type="checkbox" name="zeroed" checked=timeRef class="custom-control-input"
+                                        span.custom-control-indicator
+                                        span.custom-control-description.noselect Time ref
+                            .row
+                                .col
+                                    if (is-equal refHeadPosition 'hac')
+                                        label.custom-control.custom-checkbox.mr-sm-2
+                                            = input type="checkbox" name="flip_signs" checked=true class="custom-control-input" disabled='disabled'
+                                            span.custom-control-indicator
+                                            span.custom-control-description.noselect Flip signs
+                                    else
+                                        label.custom-control.custom-checkbox.mr-sm-2 click="'toggleProperty' 'flip_signs'"
+                                            = input type="checkbox" name="flip_signs" checked=flipSigns class="custom-control-input"
+                                            span.custom-control-indicator
+                                            span.custom-control-description.noselect Flip signs
+                            .row
+                                .col
+                                    label Select ref. anchor
+                                    .btn-toolbar.mr-05 role="toolbar" aria-label="Toolbar with button groups"
+                                        .btn-group.btn-group-sm role="group" aria-label="First group"
+                                            each instrumentAnchorsSorted as |anchor|
+                                                = link-to 'temporal-graphs.temporal-graph' instrumentId modelName (query-params ref_head_position="" ref_anchor=anchor.number) class="btn btn-outline-primary" tagName="button" type="button" | - #{anchor.number} -
+                        if (is-equal chartDataValueName 'Velocity')
+                            .row
+                                .col
+                                    label
+                            .row
+                                .col
+                                    label
+                            .row
+                                .col
+                                    if (is-equal refHeadPosition 'hac')
+                                        label.custom-control.custom-checkbox.mr-sm-2
+                                            = input type="checkbox" name="flip_signs" checked=true class="custom-control-input" disabled='disabled'
+                                            span.custom-control-indicator
+                                            span.custom-control-description.noselect Flip signs
+                                    else
+                                        label.custom-control.custom-checkbox.mr-sm-2 click="'toggleProperty' 'flip_signs'"
+                                            = input type="checkbox" name="flip_signs" checked=flipSigns class="custom-control-input"
+                                            span.custom-control-indicator
+                                            span.custom-control-description.noselect Flip signs
+                            .row
+                                .col
+                                    label Select ref. anchor
+                                    .btn-toolbar.mr-05 role="toolbar" aria-label="Toolbar with button groups"
+                                        .btn-group.btn-group-sm role="group" aria-label="First group"
+                                            each instrumentAnchorsSorted as |anchor|
+                                                = link-to 'temporal-graphs.temporal-graph' instrumentId modelName (query-params ref_head_position="" ref_anchor=anchor.number) class="btn btn-outline-primary" tagName="button" type="button" | - #{anchor.number} -
+                        if (is-equal chartDataValueName 'Acceleration')
+                            .row
+                                .col
+                                    label
+                            .row
+                                .col
+                                    label
+                            .row
+                                .col
+                                    if (is-equal refHeadPosition 'hac')
+                                        label.custom-control.custom-checkbox.mr-sm-2
+                                            = input type="checkbox" name="flip_signs" checked=true class="custom-control-input" disabled='disabled'
+                                            span.custom-control-indicator
+                                            span.custom-control-description.noselect Flip signs
+                                    else
+                                        label.custom-control.custom-checkbox.mr-sm-2 click="'toggleProperty' 'flip_signs'"
+                                            = input type="checkbox" name="flip_signs" checked=flipSigns class="custom-control-input"
+                                            span.custom-control-indicator
+                                            span.custom-control-description.noselect Flip signs
+                            .row
+                                .col
+                                    label Select ref. anchor
+                                    .btn-toolbar.mr-05 role="toolbar" aria-label="Toolbar with button groups"
+                                        .btn-group.btn-group-sm role="group" aria-label="First group"
+                                            each instrumentAnchorsSorted as |anchor|
+                                                = link-to 'temporal-graphs.temporal-graph' instrumentId modelName (query-params ref_head_position="" ref_anchor=anchor.number) class="btn btn-outline-primary" tagName="button" type="button" | - #{anchor.number} -
+    .row
+        .col-sm-12
+            = outlet

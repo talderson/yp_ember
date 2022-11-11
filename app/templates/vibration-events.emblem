@@ -1,0 +1,54 @@
+= outlet
+
+.container-fluid style="padding-top: 1rem;"
+    = bread-crumbs
+    .mt-1
+        if permissionError
+            table style="width: 100%; margin-bottom: 1rem;" id="instrumentEditError"
+                tr.details
+                    td.td_details.error colspan="6" style="padding-top: 1rem; padding-bottom: 1rem;"
+                        label.col-12.col-form-label id="error_message_details" You do not have sufficent permissions.
+        table style="width: 100%; margin-bottom: 1rem;" hidden=true id="instrumentEditError"
+            tr.details
+                td.td_details.error colspan="6" style="padding-top: 1rem; padding-bottom: 1rem;"
+                    label.col-12.col-form-label id="error_message_details" You do not have sufficent permissions.
+
+        h3 Events
+    .row
+        .col-md-3
+            = filter-text-input-events searchValue=search
+        .col-sm-2
+            .form-group
+                label Rows
+                .dropdown
+                    = page-item-count page_size=page_size page_type='vibration-events' model=@model.vibrationEvents
+    .row
+        .col
+            .pull-right
+                = pagination-links meta=@model.vibrationEvents.meta routeLink='vibration-events' extraQueryParams=(hash paginate_from_zero='') class="text-md-right"
+
+    table.table.table-striped.responsive-table
+        thead
+            tr
+                = sortable-table-header title='Timestamp' sortProperty='timestamp' selectedSortProperty=ordering sort=(action 'sortBy')
+                = sortable-table-header title='Instrument' sortProperty='instrument' selectedSortProperty=ordering sort=(action 'sortBy')
+                = sortable-table-header title='Frequency' sortProperty='frequency' selectedSortProperty=ordering sort=(action 'sortBy')
+                = sortable-table-header title='Amplitude' sortProperty='amplitude' selectedSortProperty=ordering sort=(action 'sortBy')
+                = sortable-table-header title='PPV' sortProperty='ppv' selectedSortProperty=ordering sort=(action 'sortBy')
+                = sortable-table-header title='PPA' sortProperty='ppa' selectedSortProperty=ordering sort=(action 'sortBy')
+                = sortable-table-header title='Duration' sortProperty='duration' selectedSortProperty=ordering sort=(action 'sortBy')
+        tbody
+            each model.vibrationEvents as |tableRow|
+                tr class="{{active-class (get isVisibleRowDetails tableRow.id)}}"
+                    td = tableRow.timestamp
+                    td = link-to "edit-instrument" tableRow.instrument: tableRow.instrument
+                    td = tableRow.frequency
+                    td = tableRow.amplitude
+                    td = tableRow.ppv
+                    td = tableRow.ppa
+                    td = tableRow.duration
+    .row
+        .col
+            .pull-right
+                = pagination-links meta=@model.vibrationEvents.meta routeLink='vibration-events' extraQueryParams=(hash paginate_from_zero='') class="text-md-right"
+    .pb-1

@@ -1,0 +1,28 @@
+<BsDropdown as |dd|>
+  <dd.button>
+    {{@page_size}}
+    <span class="caret"></span>
+  </dd.button>
+  {{#if @model}}
+    <dd.menu as |ddm|>
+        <ddm.item>
+          {{#link-to @page_type (query-params page_size=20 page=1) class="dropdown-item"}}20{{/link-to}}
+        </ddm.item>
+        <ddm.item>
+          {{#link-to @page_type (query-params page_size=50 page=1) class="dropdown-item"}}50{{/link-to}}
+        </ddm.item>
+        <ddm.item>
+          {{#link-to @page_type (query-params page_size=100 page=1) class="dropdown-item"}}100{{/link-to}}
+        </ddm.item>
+        <ddm.item>
+          {{#link-to @page_type (query-params page_size=200 page=1) class="dropdown-item"}}200{{/link-to}}
+        </ddm.item>
+    </dd.menu>
+  {{else}}
+    <dd.menu as |ddm|>
+        <ddm.item>
+          <a class="dropdown-item">No Events</a>
+        </ddm.item>
+    </dd.menu>
+  {{/if}}
+</BsDropdown>

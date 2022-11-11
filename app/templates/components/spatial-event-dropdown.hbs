@@ -1,0 +1,25 @@
+<BsDropdown as |dd|>
+  <dd.button>
+    {{#if (is-equal @eventType "blast")}}
+      Blast
+    {{else if (is-equal @eventType "seismic")}}
+      Seismic
+    {{else if (is-equal @eventType "bluvibe")}}
+      BluVibe
+    {{else}}
+      All
+    {{/if}}
+    <span class="caret"></span>
+  </dd.button>
+  <dd.menu as |ddm|>
+      <ddm.item>
+        {{#link-to 'spatial-graphs.spatial-graph' instrumentId modelName (query-params event_type=null blast_type=null seismic_type=null) class="dropdown-item"}}All{{/link-to}}
+      </ddm.item>
+      <ddm.item>
+        {{#link-to 'spatial-graphs.spatial-graph' instrumentId modelName (query-params event_type="blast" blast_type=null seismic_type=null) class="dropdown-item"}}Blast{{/link-to}}
+      </ddm.item>
+      <ddm.item>
+        {{#link-to 'spatial-graphs.spatial-graph' instrumentId modelName (query-params event_type="seismic" blast_type=null seismic_type=null) class="dropdown-item"}}Seismic{{/link-to}}
+      </ddm.item>
+  </dd.menu>
+</BsDropdown>

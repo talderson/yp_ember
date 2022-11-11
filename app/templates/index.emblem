@@ -1,0 +1,58 @@
+= page-title "Index"
+
+if session.isAuthenticated
+    a {{action 'invalidateSession'}} Logout
+
+.container-fluid
+    /
+        .row
+            .col-4
+                = filter-text-input searchValue=search pageValue=page target=searchTgt targetName="alert"
+        hr
+        .row
+            .col
+
+    
+    
+    div style="background: #e9ecef; border-radius: 0.25rem; padding-top:0.65rem; padding-right:1rem; padding-bottom:0.65rem; padding-left:1rem; "  
+        a style="font-size: 1.2rem; font-family: Frutiger Arabic 45 Light" href="/alerts" title="List of alerts" Alerts
+
+    div style="margin-top:1rem; margin-bottom:4rem;"
+        table style="margin-bottom: 1rem; width: 25rem"          
+            tr
+                div style="margin-left: 3px;"
+                    = filter-text-input-alert searchValue=search pageValue=page target=searchTgt targetName="alert"
+            tr            
+                div style="margin-left: 3px;"
+                    tr
+                        div 
+                            = getTotalsAlerts model=@model 
+            tr hidden=true
+                td
+                    = alerts-list alerts=@model.alertStats sortBy=(action 'sortByA') style="width: 100%;" ordering=ordering 
+
+    div style="background: #e9ecef; border-radius: 0.25rem; padding-top:0.65rem; padding-right:1rem; padding-bottom:0.65rem; padding-left:1rem; "  
+        a style="font-size: 1.2rem; font-family: Frutiger Arabic 45 Light" href="/instruments" title="List of instruments" Instruments
+    
+    div style="margin-top:1rem;"
+        table style="margin-bottom: 1rem; width: 25rem;"     
+            tr            
+                div style="margin-left: 3px;" 
+                    = filter-text-input searchValue=search pageValue=page target=searchTgt targetName="inst"
+            tr
+                div style="margin-left: 3px;"
+                    tr
+                        div style="vertical-align:middle;"
+                            = getTotalsInstruments model=@model.instrumentStats
+            tr hidden=true
+                td
+                    div style="margin-top: 10px;"
+                        = instruments-list instruments=@model.instruments sortBy=(action 'sortByI') ordering=ordering
+
+    // div id="three-D" style="display: flex; justify-content: center; margin-bottom:10rem; margin-top:5rem;" 
+    //     = threeD
+
+= outlet
+
+
+            

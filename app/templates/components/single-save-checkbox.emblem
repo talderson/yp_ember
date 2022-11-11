@@ -1,0 +1,5 @@
+label.custom-control.custom-checkbox.empty-checkbox-title.mr-sm-2 data-offset="0 -7"
+    <BsTooltip @title="Change and Save" @placement="right" />
+    input type="checkbox" id=field name=field checked=isChecked class="custom-control-input" change="'change' object"
+    span.custom-control-indicator
+    span.custom-control-description.noselect

@@ -1,0 +1,130 @@
+= outlet
+
+.container-fluid style="padding-top: 1rem;"
+    = bread-crumbs
+    .mt-1
+        if permissionError
+            table style="width: 100%; margin-bottom: 1rem;" id="instrumentEditError"
+                tr.details
+                    td.td_details.error colspan="6" style="padding-top: 1rem; padding-bottom: 1rem;"
+                        label.col-12.col-form-label id="error_message_details" You do not have sufficent permissions.
+        table style="width: 100%; margin-bottom: 1rem;" hidden=true id="instrumentEditError"
+            tr.details
+                td.td_details.error colspan="6" style="padding-top: 1rem; padding-bottom: 1rem;"
+                    label.col-12.col-form-label id="error_message_details" You do not have sufficent permissions.
+
+        h3 Events
+    .row
+        .col-md-3
+            = filter-text-input-events searchValue=search
+        .col-sm-2
+            .form-group
+                label Rows
+                .dropdown
+                    = page-item-count page_size=page_size page_type='blast-events' model=@model.blastEvents
+    .row
+        .col
+            .pull-right
+                = pagination-links meta=@model.blastEvents.meta routeLink='blast-events' extraQueryParams=(hash paginate_from_zero='') class="text-md-right"
+
+    = create-new-blast-event-form blastEvents=model.blastEvents blastTypesSelectOptions=model.blastTypes blastTypesSelectOptionsKyes="id,title" vewRowDetails=(action 'vewRowDetails') isVisibleCreateNewForm=isVisibleCreateNewForm dateFormat='YYYY-MM-DD HH:mm:ss' setProp=(action 'updateProperty')
+
+    table.table.table-striped.responsive-table
+        thead
+            tr
+                = sortable-table-header title='Timestamp' sortProperty='timestamp' selectedSortProperty=ordering sort=(action 'sortBy')
+                = sortable-table-header title='Location' sortProperty='location' selectedSortProperty=ordering sort=(action 'sortBy')
+                = sortable-table-header title='Delay' sortProperty='delay' selectedSortProperty=ordering sort=(action 'sortBy')
+                = sortable-table-header title='Level' sortProperty='level' selectedSortProperty=ordering sort=(action 'sortBy')
+                = sortable-table-header title='Stope' sortProperty='stope' selectedSortProperty=ordering sort=(action 'sortBy')
+                = sortable-table-header title='Tonnes' sortProperty='tonnes' selectedSortProperty=ordering sort=(action 'sortBy')
+                th.add-new-item id="add-new"
+                    span.add-new click="'updateProperty' 'isVisibleCreateNewForm' 'true'"
+                        <FaIcon @icon="plus" />
+                        |  New
+        tbody
+            each model.blastEvents as |tableRow|
+                tr class="{{active-class (get isVisibleRowDetails tableRow.id)}}"
+                    td = tableRow.timestamp
+                    td = tableRow.location
+                    td = tableRow.delay
+                    td = tableRow.level
+                    td = tableRow.stope
+                    td = tableRow.tonnes
+                    td.crud-td
+                        span.crud.remove click="'toggleRowDeleteConfirmationDialog' tableRow.id"
+                            <FaIcon @icon="trash" />
+                        span.crud.view click="'vewRowDetails' tableRow.id"
+                            <FaIcon @icon="eye" />
+                        div class="delete-confirmation {{active-class (get isRowDeleteConfirmationDialog tableRow.id)}}"
+                            span.crud-delete-message
+                                span
+                                    small Delete it?
+                                    small Are you sure?
+                            span.crud-delete-action.crud-delete-confirm click="'remove' model.blastEvents tableRow"
+                                | Yes
+                            span.crud-delete-action.crud-delete-cancel click="'toggleRowDeleteConfirmationDialog' tableRow.id"
+                                | No
+                if (get isVisibleRowDetails tableRow.id)
+                    tr.details
+                        td
+                        td
+                        td
+                        td.td_details colspan="4"
+                            table.row_details.form-inline
+                                tbody
+                                    tr
+                                        td
+                                            label.col-12.col-form-label for="#{tableRow.timestamp}" Timestamp:
+                                        td.input
+                                            = single-save-datetime-picker object=tableRow field='timestamp' format='YYYY-MM-DD HH:mm:ss'
+                                    tr
+                                        td
+                                            label.col-12.col-form-label for="#{tableRow.location}" Location:
+                                        td.input
+                                            = single-save-input object=tableRow inputType='text' field='location'
+                                    tr
+                                        td
+                                            label.col-12.col-form-label for="#{tableRow.coordinates}" Coordinates:
+                                        td.input
+                                            = single-save-geo-input object=tableRow east=tableRow.east north=tableRow.north depth=tableRow.depth
+                                    tr
+                                        td
+                                            label.col-12.col-form-label for="#{tableRow.comments}" Comments:
+                                        td.input
+                                            = single-save-input object=tableRow inputType='textarea' field='comments'
+                                    tr
+                                        td
+                                            label.col-12.col-form-label for="#{tableRow.isVisible}" Is visible:
+                                        td.input
+                                            = single-save-checkbox object=tableRow field='isVisible'
+                                    tr
+                                        td
+                                            label.col-12.col-form-label for="#{tableRow.delay}" Delay:
+                                        td.input
+                                            = single-save-time-picker object=tableRow field='delay' format='HH:mm:ss'
+                                    tr
+                                        td
+                                            label.col-12.col-form-label for="#{tableRow.level}" Level:
+                                        td.input
+                                            = single-save-input object=tableRow inputType='text' field='level'
+                                    tr
+                                        td
+                                            label.col-12.col-form-label for="#{tableRow.stope}" Stope:
+                                        td.input
+                                            = single-save-input object=tableRow inputType='text' field='stope'
+                                    tr
+                                        td
+                                            label.col-12.col-form-label for="#{tableRow.tonnes}" Tonnes:
+                                        td.input
+                                            = single-save-input object=tableRow inputType='text' field='tonnes'
+                                    tr
+                                        td
+                                            label.col-12.col-form-label for="#{tableRow.blastType.title}" Blast type:
+                                        td.input
+                                            = single-save-select selectOptions=model.blastTypes selectOptionsKyes="id,title" object=tableRow.blastType parentObject=tableRow field='title' valueSource='id'
+    .row
+        .col
+            .pull-right
+                = pagination-links meta=@model.blastEvents.meta routeLink='blast-events' extraQueryParams=(hash paginate_from_zero='') class="text-md-right"
+    .pb-1

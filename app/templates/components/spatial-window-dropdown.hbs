@@ -1,0 +1,17 @@
+<BsDropdown as |dd|>
+  <dd.button>
+    {{@frequencySelect}}
+    <span class="caret"></span>
+  </dd.button>
+  <dd.menu as |ddm|>
+      <ddm.item>
+        {{#link-to 'spatial-graphs.spatial-graph' instrumentId modelName (query-params frequency_num=10 frequency='' events_only=false) class="dropdown-item"}}10{{/link-to}}
+      </ddm.item>
+      <ddm.item>
+        {{#link-to 'spatial-graphs.spatial-graph' instrumentId modelName (query-params frequency_num=20 frequency='' events_only=false) class="dropdown-item"}}20{{/link-to}}
+      </ddm.item>
+      <ddm.item>
+        {{#link-to 'spatial-graphs.spatial-graph' instrumentId modelName (query-params frequency_num=50 frequency='' events_only=false) class="dropdown-item"}}50{{/link-to}}
+      </ddm.item>
+  </dd.menu>
+</BsDropdown>

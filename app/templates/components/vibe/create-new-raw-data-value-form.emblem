@@ -1,0 +1,30 @@
+if isVisibleCreateNewForm
+    table.table.table-striped.responsive-table
+        tbody
+            tr.active.newRecord
+                td New data value
+                td colspan=instrumentAnchors.length
+                td.add-new-item.noWrap
+                    span.cancel-new.mr-1 click="'cancelNew' instruments"
+                        i.fa.fa-times aria-hidden="true"
+                        |  Cancel
+
+                    span.save-new click="'saveNew' instruments"
+                        i.fa.fa-check aria-hidden="true"
+                        |  Save
+            tr.details.newRecordDetails
+                td Date Test
+                each instrumentAnchors as |anchor|
+                    td = anchor
+                td Temperature
+            tr.details.newRecordDetails
+                td.noWrap.row_details.form-inline.input data-title="Date"
+                    .form-group.row
+                        .col-12
+                            .datetime-picker-component
+                                input type="datetime-local" step="1" oninput={action (mut newTimestampValue) value="target.value"} id="newTimestampValue"
+                = each-in displacementValueObjectValues as |key value|
+                    td data-title=key
+                        input.form-control.inside-table-cell type="text" value=value id="df#{key}" oninput={action (mut (get newDisplacementValueObjectValues key)) value="target.value"}
+                td data-title="Temperature"
+                    input.form-control.inside-table-cell type="text" value=temperatureObjectValue id="df#{key}" oninput={action (mut temperatureObjectValue) value="target.value"}

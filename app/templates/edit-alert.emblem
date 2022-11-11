@@ -1,0 +1,87 @@
+= page-title "Alert " @model.alert.id
+.container-fluid
+    = bread-crumbs
+    table style="width: 100%;"
+        if isVisibleError
+            tr.details
+                td.td_details.error colspan="6" style="padding-top: 1rem; padding-bottom: 1rem;"
+                    label.col-12.col-form-label for="error_message" There was an error editting the alert.
+                    if emptyBoldError
+                        label.col-12.col-form-label id="error_message_details" A required field was not entered. Bolded fields are required.
+                    else if noActChError
+                        label.col-12.col-form-label id="error_message_details" Select at least one active channel.
+                    else if nonNumericValueError
+                        label.col-12.col-form-label id="error_message_details" Ensure that your value entry only contains a numeric values (0-9) or a decimal point (".")
+                    else if wLError
+                        label.col-12.col-form-label id="error_message_details" Enter a window length larger than 1 if method is not immediate.
+                    else if wLNegError
+                        label.col-12.col-form-label id="error_message_details" Enter a window length larger than or equal to 1 if method is not immediate.
+                    else if targetError
+                        label.col-12.col-form-label id="error_message_details" Enter a target.
+                    else if phoneNumError
+                        label.col-12.col-form-label id="error_message_details" Enter a valid phone number (numeric values only) followed by carrier.
+                        | To see available carriers, click on the "Target (Phone #):" link 
+                    else if authError
+                        label.col-12.col-form-label id="error_message_details" You do not have permission to make changes to an alert.
+                        
+
+        tr.details
+            td.td_details style="padding-top: 2rem; padding-left: 2rem; padding-bottom: 1rem;"
+                table.row_details.form-inline
+                    tbody
+                        tr
+                            td
+                                label.col-12.col-form-label for="id" style="font-size: 25px;" Instrument ID:
+                            td.input
+                                //= single-save-input object=@model.alert.instrument style="font-size: 25px" inputType='text' field='id' isEditable=false
+                                <LinkTo @route="edit-instrument" @model={{@model.alert.instrument.id}} style="font-size: 23px">
+                                    {{@model.alert.instrument.id}} 
+                                </LinkTo>
+            td.td_details 
+                table.row_details.form-inline style="padding-top: 2rem; padding-left: 2rem; padding-bottom: 1rem;"
+                    tbody
+                        tr  
+                            td
+                                label.col-12.col-form-label for="instrumentType" style="font-size: 25px" Instrument type:
+                            td.input
+                                = single-save-input-InstType object=@model.alert.instrument.instrumentType inputType='text' field='title' isEditable=false 
+                                //= single-save-select selectOptions=@model.instrumentTypes style="font-size: 23px" selectOptionsKyes="id,title" object=@model.alert.instrument.instrumentType parentObject=@model.alert.instrument field='title' valueSource='id' inputFieldId='instrumentType' isEditable=true 
+            td.td_details
+                table.row_details.form-inline
+            
+        tr.details
+            td.td_details colspan=3 style="padding-left:2rem; padding-right:1rem;"
+                if (eq @model.alert.instrument.instrumentTypeID 1)
+                    = pack/edit-alert alert=@model.alert saved=(action 'saved') setError=(action 'setError')
+                if (eq @model.alert.instrument.instrumentTypeID 2)
+                    = cable/edit-alert alert=@model.alert saved=(action 'saved') setError=(action 'setError')
+                if (eq @model.alert.instrument.instrumentTypeID 3)
+                    = rebar/edit-alert alert=@model.alert saved=(action 'saved') setError=(action 'setError')
+                if (eq @model.alert.instrument.instrumentTypeID 4)
+                    = pack/edit-alert alert=@model.alert saved=(action 'saved') setError=(action 'setError')
+                if (eq @model.alert.instrument.instrumentTypeID 5)
+                    = pack/edit-alert alert=@model.alert saved=(action 'saved') setError=(action 'setError')
+                if (eq @model.alert.instrument.instrumentTypeID 6)
+                    = tilt/edit-alert alert=@model.alert saved=(action 'saved') setError=(action 'setError')
+                if (eq @model.alert.instrument.instrumentTypeID 7)
+                    = slough/edit-alert alert=@model.alert saved=(action 'saved') setError=(action 'setError')
+                if (eq @model.alert.instrument.instrumentTypeID 8)
+                    = thermo/edit-alert alert=@model.alert saved=(action 'saved') setError=(action 'setError')
+                if (eq @model.alert.instrument.instrumentTypeID 9)
+                    = piezo/edit-alert alert=@model.alert saved=(action 'saved') setError=(action 'setError')
+                if (eq @model.alert.instrument.instrumentTypeID 10)
+                    = hid/edit-alert alert=@model.alert saved=(action 'saved') setError=(action 'setError')
+                if (eq @model.alert.instrument.instrumentTypeID 11)
+                    = pack/edit-alert alert=@model.alert saved=(action 'saved') setError=(action 'setError')
+                if (eq @model.alert.instrument.instrumentTypeID 12)
+                    = wire/edit-alert alert=@model.alert saved=(action 'saved') setError=(action 'setError')
+                if (eq @model.alert.instrument.instrumentTypeID 13)
+                    = adict/edit-alert alert=@model.alert saved=(action 'saved') setError=(action 'setError')
+                if (eq @model.alert.instrument.instrumentTypeID 14)
+                    | Analog
+                if (eq @model.alert.instrument.instrumentTypeID 15)
+                    = vibe/edit-alert alert=@model.alert saved=(action 'saved') setError=(action 'setError')
+                if (eq @model.alert.instrument.instrumentTypeID 16)
+                    = micro/edit-alert alert=@model.alert saved=(action 'saved') setError=(action 'setError')
+
+= outlet

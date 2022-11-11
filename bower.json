@@ -1,0 +1,1 @@
+{"name":"geotechnical-data-platform-new","description":"VantagePoint V3 UI","main":"","authors":["KindarConrath <peterabrittain@gmail.com>"],"license":"MIT","homepage":"","ignore":["**/.*","node_modules","bower_components","test","tests"],"dependencies":{"font-awesome":"^5.15.2","jquery":"^3.6.0","d3":"v3.4.4","tether":"^1.4.7"}}

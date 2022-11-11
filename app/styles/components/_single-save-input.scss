@@ -1,0 +1,51 @@
+.editable-field, .non-editable-field {
+    position: relative;
+    .text {
+        cursor: text;
+        border: 1px solid transparent;
+        width: 100%;
+        display: block;
+        min-height: 1.5rem;
+        position: relative;
+        border-radius: .25rem;
+        &:hover {
+            border-color: rgba(0,0,0,0.15);
+        }
+        &:hover:after {
+            font-family: FontAwesome;
+            // color: $warn-red-deep;
+            color: $strong-grey;
+            content: "\f044";
+            position: absolute;
+            right: .5rem;
+            top: .03rem;
+        }
+    }
+    .save, .cancel {
+        top: .5rem;
+        position: absolute;
+        cursor: pointer;
+    }
+    .save {
+        right: -0.5rem;
+        color: $strong-grey;
+    }
+    .cancel {
+        right: -1.5rem;
+        color: $strong-grey;
+    }
+    .inactive {
+        color: $inacive-control-grey !important;
+    }
+}
+.non-editable-field {
+    .text {
+        cursor: default;
+        &:hover {
+            border-color: transparent;
+        }
+        &:hover:after {
+            content: none;
+        }
+    }
+}

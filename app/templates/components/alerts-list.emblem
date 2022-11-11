@@ -1,0 +1,373 @@
+table style="width: 100%;" hidden=true id="alertListError"
+    tr.details
+        td.td_details.error colspan="6" style="padding-top: 1rem; padding-bottom: 1rem;"
+            label.col-12.col-form-label id="error_message_details" You do not have permission to delete an alert.
+
+table.table.table-striped.responsive-table
+    thead
+        tr
+            unless isInst
+                = sortable-table-header title='Instrument ID' sortProperty='instrument.id' selectedSortProperty=ordering sort=@sortBy
+            = sortable-table-header title='Metric' sortProperty='metric' selectedSortProperty=ordering sort=@sortBy
+            = sortable-table-header title='Direction' sortProperty='direction' selectedSortProperty=ordering sort=@sortBy
+            = sortable-table-header title='Value' sortProperty='value' selectedSortProperty=ordering sort=@sortBy
+            = sortable-table-header title='Severity' sortProperty='severity' selectedSortProperty=ordering sort=@sortBy
+            = sortable-table-header title='Response' sortProperty='response' selectedSortProperty=ordering sort=@sortBy
+            = sortable-table-header title='Status' sortProperty='isTriggered' selectedSortProperty=ordering sort=@sortBy
+            th.add-new-item id="add-new" colspan="2"
+                span.add-new click="createAlert"
+                    <FaIcon @icon="plus" />
+                    |  New
+    tbody
+        each @alerts as |tableRow|
+            if tableRow.isActive
+                if tableRow.isTriggered
+                    if (is-equal tableRow.severity "LOW")
+                        tr.alertLow
+                            unless isInst
+                                td 
+                                    = link-to "edit-instrument" tableRow.instrument.id: tableRow.instrument.id
+                            if (is-equal tableRow.metric "DISP")
+                                if (is-equal tableRow.instrument.instrumentType.title 'Tilt')
+                                    td Tilt
+                                else
+                                    td Displacement
+                            if (is-equal tableRow.metric "VEL")
+                                if (is-equal tableRow.instrument.instrumentType.title 'Tilt')
+                                    td Angular Velocity
+                                else
+                                    td Velocity
+                            if (is-equal tableRow.metric "ACC")
+                                td Acceleration
+                            if (is-equal tableRow.metric "TIME")
+                                td Latest Response
+
+                            if (eq tableRow.direction "GT")
+                                td
+                                    | &gt;=
+                            if (eq tableRow.direction "LT")
+                                td
+                                    | &lt;=
+                            td = tableRow.value
+
+                            if (is-equal tableRow.severity "LOW")
+                                td Low
+                            if (is-equal tableRow.severity "MED")
+                                td Medium
+                            if (is-equal tableRow.severity "HIGH")
+                                td High
+
+                            if (is-equal tableRow.response "VP")
+                                td VP Display
+                            if (is-equal tableRow.response "EMAIL")
+                                td Send Email
+                            if (is-equal tableRow.response "SMS")
+                                td Send SMS Msg
+                            if (is-equal tableRow.response "TRIG")
+                                td Trigger Alarm
+
+                            if tableRow.isActive
+                                if tableRow.isTriggered
+                                    td
+                                        | ALERT
+                                else
+                                    td
+                                        | Active
+                            else
+                                td
+                                    | Inactive
+
+                            td.crud-td
+                                span.crud.remove click="'toggleRowDeleteConfirmationDialog' tableRow.id"
+                                    <FaIcon @icon="trash" />
+                                div class="delete-confirmation {{active-class (get isRowDeleteConfirmationDialog tableRow.id)}}"
+                                    span.crud-delete-message
+                                        span
+                                            small All associated data
+                                            small will be deleted too!
+                                    span.crud-delete-action.crud-delete-confirm click="'remove' model.instruments tableRow"
+                                        | Yes
+                                    span.crud-delete-action.crud-delete-cancel click="'toggleRowDeleteConfirmationDialog' tableRow.id"
+                                        | No
+                            td
+                                = link-to "edit-alert" tableRow.id
+                                    <FaIcon @icon="pencil-alt" />
+                    
+                    if (is-equal tableRow.severity "MED")
+                        tr.alertMed
+                            unless isInst
+                                td = link-to "edit-instrument" tableRow.instrument.id: tableRow.instrument.id
+                            if (is-equal tableRow.metric "DISP")
+                                if (is-equal tableRow.instrument.instrumentType.title 'Tilt')
+                                    td Tilt
+                                else
+                                    td Displacement
+                            if (is-equal tableRow.metric "VEL")
+                                if (is-equal tableRow.instrument.instrumentType.title 'Tilt')
+                                    td Angular Velocity
+                                else
+                                    td Velocity
+                            if (is-equal tableRow.metric "ACC")
+                                td Acceleration
+                            if (is-equal tableRow.metric "TIME")
+                                td Latest Response
+
+                            if (eq tableRow.direction "GT")
+                                td
+                                    | &gt;=
+                            if (eq tableRow.direction "LT")
+                                td
+                                    | &lt;=
+                            td = tableRow.value
+
+                            if (is-equal tableRow.severity "LOW")
+                                td Low
+                            if (is-equal tableRow.severity "MED")
+                                td Medium
+                            if (is-equal tableRow.severity "HIGH")
+                                td High
+
+                            if (is-equal tableRow.response "VP")
+                                td VP Display
+                            if (is-equal tableRow.response "EMAIL")
+                                td Send Email
+                            if (is-equal tableRow.response "SMS")
+                                td Send SMS Msg
+                            if (is-equal tableRow.response "TRIG")
+                                td Trigger Alarm
+
+                            if tableRow.isActive
+                                if tableRow.isTriggered
+                                    td
+                                        | ALERT
+                                else
+                                    td
+                                        | Active
+                            else
+                                td
+                                    | Inactive
+
+                            // td.crud-td
+                            //     span.crud.remove click="'toggleRowDeleteConfirmationDialog' tableRow.id"
+                            //         <FaIcon @icon="trash" />
+                            //     div class="delete-confirmation {{active-class (get isRowDeleteConfirmationDialog tableRow.id)}}"
+                            //         span.crud-delete-message
+                            //             span
+                            //                 small All associated data
+                            //                 small will be deleted too!
+                            //         span.crud-delete-action.crud-delete-confirm click="'remove' model.instruments tableRow"
+                            //             | Yes
+                            //         span.crud-delete-action.crud-delete-cancel click="'toggleRowDeleteConfirmationDialog' tableRow.id"
+                            //             | No
+                            td
+                                = link-to "edit-alert" tableRow.id
+                                    <FaIcon @icon="pencil-alt" />
+
+                    if (is-equal tableRow.severity "HIGH")
+                        tr.alertHigh
+                            unless isInst
+                                td = link-to "edit-instrument" tableRow.instrument.id: tableRow.instrument.id
+                            if (is-equal tableRow.metric "DISP")
+                                if (is-equal tableRow.instrument.instrumentType.title 'Tilt')
+                                    td Tilt
+                                else
+                                    td Displacement
+                            if (is-equal tableRow.metric "VEL")
+                                if (is-equal tableRow.instrument.instrumentType.title 'Tilt')
+                                    td Angular Velocity
+                                else
+                                    td Velocity
+                            if (is-equal tableRow.metric "ACC")
+                                td Acceleration
+                            if (is-equal tableRow.metric "TIME")
+                                td Latest Response
+
+                            if (eq tableRow.direction "GT")
+                                td
+                                    | &gt;=
+                            if (eq tableRow.direction "LT")
+                                td
+                                    | &lt;=
+                            td = tableRow.value
+
+                            if (is-equal tableRow.severity "LOW")
+                                td Low
+                            if (is-equal tableRow.severity "MED")
+                                td Medium
+                            if (is-equal tableRow.severity "HIGH")
+                                td High
+
+                            if (is-equal tableRow.response "VP")
+                                td VP Display
+                            if (is-equal tableRow.response "EMAIL")
+                                td Send Email
+                            if (is-equal tableRow.response "SMS")
+                                td Send SMS Msg
+                            if (is-equal tableRow.response "TRIG")
+                                td Trigger Alarm
+
+                            if tableRow.isActive
+                                if tableRow.isTriggered
+                                    td
+                                        | ALERT
+                                else
+                                    td
+                                        | Active
+                            else
+                                td
+                                    | Inactive
+
+                            td.crud-td
+                                span.crud.remove click="'toggleRowDeleteConfirmationDialog' tableRow.id"
+                                    <FaIcon @icon="trash" />
+                                div class="delete-confirmation {{active-class (get isRowDeleteConfirmationDialog tableRow.id)}}"
+                                    span.crud-delete-message
+                                        span
+                                            small All associated data
+                                            small will be deleted too!
+                                    span.crud-delete-action.crud-delete-confirm click="'remove' model.instruments tableRow"
+                                        | Yes
+                                    span.crud-delete-action.crud-delete-cancel click="'toggleRowDeleteConfirmationDialog' tableRow.id" 
+                                        | No
+                            td
+                                = link-to "edit-alert" tableRow.id
+                                    <FaIcon @icon="pencil-alt" />
+
+                else
+                    tr
+                        unless isInst
+                            td = link-to "edit-instrument" tableRow.instrument.id: tableRow.instrument.id
+                        if (is-equal tableRow.metric "DISP")
+                            if (is-equal tableRow.instrument.instrumentType.title 'Tilt')
+                                td Tilt
+                            else
+                                td Displacement
+                        if (is-equal tableRow.metric "VEL")
+                            if (is-equal tableRow.instrument.instrumentType.title 'Tilt')
+                                td Angular Velocity
+                            else
+                                td Velocity
+                        if (is-equal tableRow.metric "ACC")
+                            td Acceleration
+                        if (is-equal tableRow.metric "TIME")
+                            td Latest Response
+
+                        if (eq tableRow.direction "GT")
+                            td
+                                | &gt;=
+                        if (eq tableRow.direction "LT")
+                            td
+                                | &lt;=
+                        td = tableRow.value
+
+                        if (is-equal tableRow.severity "LOW")
+                            td Low
+                        if (is-equal tableRow.severity "MED")
+                            td Medium
+                        if (is-equal tableRow.severity "HIGH")
+                            td High
+
+                        if (is-equal tableRow.response "VP")
+                            td VP Display
+                        if (is-equal tableRow.response "EMAIL")
+                            td Send Email
+                        if (is-equal tableRow.response "SMS")
+                            td Send SMS Msg
+                        if (is-equal tableRow.response "TRIG")
+                            td Trigger Alarm
+
+                        if tableRow.isActive
+                            if tableRow.isTriggered
+                                td
+                                    | ALERT
+                            else
+                                td
+                                    | Active
+                        else
+                            td
+                                | Inactive
+
+                        td.crud-td
+                            span.crud.remove click="'toggleRowDeleteConfirmationDialog' tableRow.id"
+                                <FaIcon @icon="trash" />
+                            div class="delete-confirmation {{active-class (get isRowDeleteConfirmationDialog tableRow.id)}}"
+                                span.crud-delete-message
+                                    span
+                                        small All associated data
+                                        small will be deleted too!
+                                span.crud-delete-action.crud-delete-confirm click="'remove' model.instruments tableRow"
+                                    | Yes
+                                span.crud-delete-action.crud-delete-cancel click="'toggleRowDeleteConfirmationDialog' tableRow.id"
+                                    | No
+                        td
+                            = link-to "edit-alert" tableRow.id
+                                <FaIcon @icon="pencil-alt" />
+            else
+                tr.inactive
+                    unless isInst
+                        td = link-to "edit-instrument" tableRow.instrument.id: tableRow.instrument.id
+                    if (is-equal tableRow.metric "DISP")
+                        if (is-equal tableRow.instrument.instrumentType.title 'Tilt')
+                            td Tilt
+                        else
+                            td Displacement
+                    if (is-equal tableRow.metric "VEL")
+                        if (is-equal tableRow.instrument.instrumentType.title 'Tilt')
+                            td Angular Velocity
+                        else
+                            td Velocity
+                    if (is-equal tableRow.metric "ACC")
+                        td Acceleration
+                    if (is-equal tableRow.metric "TIME")
+                        td Latest Response
+
+                    if (eq tableRow.direction "GT")
+                        td
+                            | &gt;=
+                    if (eq tableRow.direction "LT")
+                        td
+                            | &lt;=
+                    td = tableRow.value
+
+                    if (is-equal tableRow.severity "LOW")
+                        td Low
+                    if (is-equal tableRow.severity "MED")
+                        td Medium
+                    if (is-equal tableRow.severity "HIGH")
+                        td High
+
+                    if (is-equal tableRow.response "VP")
+                        td VP Display
+                    if (is-equal tableRow.response "EMAIL")
+                        td Send Email
+                    if (is-equal tableRow.response "SMS")
+                        td Send SMS Msg
+                    if (is-equal tableRow.response "TRIG")
+                        td Trigger Alarm
+
+                    if tableRow.isActive
+                        if tableRow.isTriggered
+                            td
+                                | ALERT
+                        else
+                            td
+                                | Active
+                    else
+                        td
+                            | Inactive
+
+                    td.crud-td
+                        span.crud.remove click="'toggleRowDeleteConfirmationDialog' tableRow.id"
+                            <FaIcon @icon="trash" />
+                        div class="delete-confirmation {{active-class (get isRowDeleteConfirmationDialog tableRow.id)}}"
+                            span.crud-delete-message
+                                span
+                                    small All associated data
+                                    small will be deleted too!
+                            span.crud-delete-action.crud-delete-confirm click="'remove' model.instruments tableRow"
+                                | Yes
+                            span.crud-delete-action.crud-delete-cancel click="'toggleRowDeleteConfirmationDialog' tableRow.id"
+                                | No
+                    td
+                        = link-to "edit-alert" tableRow.id
+                            <FaIcon @icon="pencil-alt" />

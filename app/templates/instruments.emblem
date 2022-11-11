@@ -1,0 +1,25 @@
+= page-title "Instruments"
+
+.container-fluid
+    = bread-crumbs
+    .row
+        .col
+            = filter-text-input searchValue=search pageValue=page
+        .col
+            .form-group
+                label Rows
+                .dropdown
+                    = page-item-count page_size=page_size page_type='instruments' model=@model.instruments
+        .col style="margin-top:2rem;"
+            = getTotalsInstruments model=@model.instrumentStats
+    .row
+        .col
+            .pull-right
+                = pagination-links meta=@model.instruments.meta routeLink='instruments' extraQueryParams=(hash paginate_from_zero='') class="text-md-right"
+    .row
+        .col
+            = instruments-list instruments=@model.instruments sortBy=(action 'sortBy') ordering=ordering
+    .row
+        .col
+            .pull-right
+                = pagination-links meta=@model.instruments.meta routeLink='instruments' extraQueryParams=(hash paginate_from_zero='') class="text-md-right"

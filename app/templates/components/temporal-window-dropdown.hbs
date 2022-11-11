@@ -1,0 +1,28 @@
+<BsDropdown as |dd|>
+  <dd.button>
+    {{#if (is-equal @frequency "minute")}}
+      Per Minute
+    {{else if (is-equal @frequency "hourly")}}
+      Hourly
+    {{else if (is-equal @frequency "daily")}}
+      Daily
+    {{else}}
+      None
+    {{/if}}
+    <span class="caret"></span>
+  </dd.button>
+  <dd.menu as |ddm|>
+      <ddm.item>
+        {{#link-to 'temporal-graphs.temporal-graph' instrumentId modelName (query-params frequency='') class="dropdown-item"}}None{{/link-to}}
+      </ddm.item>
+      <ddm.item>
+        {{#link-to 'temporal-graphs.temporal-graph' instrumentId modelName (query-params frequency='minute') class="dropdown-item"}}Per Minute{{/link-to}}
+      </ddm.item>
+      <ddm.item>
+        {{#link-to 'temporal-graphs.temporal-graph' instrumentId modelName (query-params frequency='hourly') class="dropdown-item"}}Hourly{{/link-to}}
+      </ddm.item>
+      <ddm.item>
+        {{#link-to 'temporal-graphs.temporal-graph' instrumentId modelName (query-params frequency='daily') class="dropdown-item"}}Daily{{/link-to}}
+      </ddm.item>
+  </dd.menu>
+</BsDropdown>

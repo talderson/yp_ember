@@ -1,0 +1,24 @@
+.container-fluid
+    = bread-crumbs
+    .row
+        .col
+            = filter-text-input-alert searchValue=search pageValue=page
+        .col
+            .form-group
+                label Rows
+                .dropdown
+                    = page-item-count page_size=page_size page_type='alerts' model=@model.alerts
+        .col style="margin-top:2rem;"
+            = getTotalsAlerts model=@model
+    .row
+        .col
+            .pull-right
+                = pagination-links meta=@model.alerts.meta routeLink='alerts' extraQueryParams=(hash paginate_from_zero='') class="text-md-right"
+    .row
+        .col
+            = alerts-list alerts=@model.alerts sortBy=(action 'sortBy') ordering=ordering
+    .row
+        .col
+            .pull-right
+                = pagination-links meta=@model.alerts.meta routeLink='alerts' extraQueryParams=(hash paginate_from_zero='') class="text-md-right"
+    

@@ -1,0 +1,35 @@
+table style="width: 100%"
+    tbody
+        tr.details
+            td.td_details colspan="2" style="vertical-align: top;"
+                table.row_details.form-inline
+                    tbody
+                        tr
+                            td
+                                label.col-xs-12.col-form-label for="calcCoef1" A=
+                            td.input
+                                = single-save-input-numeric object=port inputType='text' field='calcCoef1'
+                        tr
+                            td
+                                label.col-xs-12.col-form-label for="calcCoef2" B=
+                            td.input
+                                = single-save-input-numeric object=port inputType='text' field='calcCoef2'
+                        tr
+                            td
+                                label.col-xs-12.col-form-label for="calcCoef3" L<sub>0</sub> (Freq) =
+                            td.input
+                                = single-save-input-numeric object=port inputType='text' field='calcCoef3'
+
+            td.td_details colspan="2" style="vertical-align: top;"
+                table.row_details.form-inline
+                    tbody
+                        tr
+                            td
+                                label.col-xs-12.col-form-label for="calcCoef4" C<sub>t</sub> (kPa/&deg;C) =
+                            td.input
+                                = single-save-input-numeric object=port inputType='text' field='calcCoef4'
+                        tr
+                            td
+                                label.col-xs-12.col-form-label for="calcCoef5" T<sub>0</sub> (&deg;C) =
+                            td.input
+                                = single-save-input-numeric object=port inputType='text' field='calcCoef5'

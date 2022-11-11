@@ -1,0 +1,347 @@
+// ----- comment_template --------------------------------------------------
+// ----- comment_template_description
+// END - comment_template --------------------------------------------------
+
+//@import "compass";
+//@import "compass/css3";
+
+// ----- Import bootstrap --------------------------------------------------
+// ----- and overwrite bootstrap variables which can be found here "bower_components\bootstrap\scss\_variables.scss"
+$brand-primary: #4A6A9C;
+$navbar-padding-y: 0;
+$table-cell-padding: .6rem;
+$tooltip-bg: #4D4D4D;
+
+$btn-padding-x: .77rem;
+$btn-padding-y: .35rem;
+$btn-line-height: 1.25;
+$btn-font-weight: normal;
+
+$input-padding-x: .75rem !default;
+$input-padding-y: .35rem !default;
+$input-line-height: 1.25 !default;
+
+$pagination-padding-y: .35rem !default;
+
+@import "ember-bootstrap/bootstrap";
+// @import '../../bower_components/bootstrap/scss/bootstrap';
+// @import 'bootstrap-alpha-bugs';
+// END - Import bootstrap --------------------------------------------------
+
+
+// ----- Import filtered select list styles --------------------------------------------------
+ @import 'ember-searchable-select/style';
+ @import 'override-vendor-styles/ember-searchable-select';
+// END - Import filtered select list styles --------------------------------------------------
+
+
+// ----- Project specific variables --------------------------------------------------
+$warn-red-light: #D0524F;
+$warn-red-deep: #C23734;
+$bright-red: #F20600;
+$bright-red-deep: #D13532;
+$sedative-red: #D14240;
+$bright-orange: #f77400;
+$pastel-orange: #F90;
+$pastel-orange-deep: #E98E06;
+$strong-grey: #6F6E6E;
+$deep-pink: #bf25b6;
+$sedative-pink: #b651b0;
+$pastel-green: #569342;
+$deep-green: #3c8823;
+$light-pastel-green: #cce1bf;
+$bright-blue: #15b7ca;
+$sedative-blue: #429CBA;
+$inacive-control-grey: #BFBFBF;
+// END - Project specific variables --------------------------------------------------
+
+
+
+// ----- Import project-specific components styles --------------------------------------------------
+@import 'helpers';
+@import 'components/logo';
+@import 'components/navbar';
+@import 'components/create-new-table-row-form';
+@import 'components/data-tables';
+@import 'components/responsive-data-tables';
+@import 'components/single-save-input';
+@import 'components/sortable-table-header';
+@import 'components/custom-checkbox';
+@import 'components/datetime-picker';
+@import 'components/single-save-instrument-anchors';
+@import 'components/vertical-select';
+@import 'components/spinner-yp-logo';
+@import 'components/settings-table';
+@import 'components/import-form';
+@import 'components/breadcrumbs';
+// END - Import project-specific components styles --------------------------------------------------
+
+
+
+// ----- Sticky footer --------------------------------------------------
+html {
+    position: relative;
+    min-height: 100%;
+    min-width: 800px;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    overflow-x: hidden;
+}
+
+.rcorners {
+    border-radius: 25px;
+    border: 2px solid #000000;
+    padding: 20px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #f5f5f5;
+}
+// END - Sticky footer --------------------------------------------------
+
+.navbar {
+    display: block;
+}
+
+// ----- Overwrite defaults --------------------------------------------------
+// ----- Overwrite bootstrap defaults that can't be changed via variables
+.form-inline{ 
+    label {
+        justify-content: left;
+    }
+}
+
+.custom-control-input {
+    opacity: 1;
+}
+
+.container-fluid {
+    max-width: 1300px;
+}
+body > .container-fluid {
+    padding: 15px 15px 0;
+}
+
+.footer > .container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+div:focus {
+    outline: none !important;
+    border-color: none;
+    box-shadow: none;
+}
+.dropdown-menu {
+    z-index: 99999;
+}
+.error {
+    background-color: rgb(206, 96, 94);
+    text-align: center;
+}
+.gone {
+    display: none;
+}
+.red-text {
+    color: red;
+}
+// remove ugly outline
+* {
+    &:focus {
+        outline: none !important;
+    }
+    &::-moz-focus-inner {
+        border: 0  !important;
+    }
+}
+// END - Overwrite defaults --------------------------------------------------
+.ember-google-map {
+    height: 100%;
+    width: 100%;
+}
+
+.center {
+    margin: auto;
+    width: 30%;
+}
+
+.login {
+    width: 28em;
+    min-width: 300px;
+    margin: 100px auto;
+    border: 1px solid #eaeaea;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #fff;
+    position: relative;
+    display: block;
+}
+
+.login-head {
+    text-align: center;
+    height: auto;
+    padding: 5px 16px;
+    width: auto;
+    background: #417690;
+    color: #fff;
+    overflow: hidden;
+    display: block;
+}
+
+.login-body {
+    padding: 20px 20px 0;
+    display: block;
+    background: #f8f8f8;
+}
+
+.login-foot {
+    clear: both;
+    padding: 10px;
+    display: block;
+    background: #f8f8f8;
+}
+
+.form-row {
+    padding: 4px 0;
+    float: left;
+    width: 100%;
+    border-bottom: none;
+    display: block;
+}
+
+#id_username, #id_password {
+    clear: both;
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#id_button {
+    border-radius: 4px;
+    background: #79aec8;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto auto;
+}
+
+.submit-row {
+    padding-top: 10px;
+    clear: both;
+    margin: 0;
+    border: none;
+    background: none;
+    text-align: left;
+    display: block;
+}
+
+#circleSmall {
+    border: 1px solid #000000;
+	border-radius: 50%;
+	width: 12px;
+	height: 12px;
+	z-index: 86;
+    vertical-align: middle;
+  }
+
+#circle1 {
+    //border: 1px solid #000000;
+    background: rgba(255, 0, 0, 0.767);
+	border-radius: 50%;
+	width: 12px;
+	height: 12px;
+	z-index: 86;
+    vertical-align: middle;
+}
+
+#circle2 {
+    //border: 1px solid #000000;
+    background: rgba(255, 145, 0, 0.774);
+	border-radius: 50%;
+	width: 12px;
+	height: 12px;
+	z-index: 86;
+    vertical-align: middle;
+}
+
+#circle3 {
+    //border: 1px solid #000000;
+    background: rgba(255, 217, 0, 0.651);
+	border-radius: 50%;
+	width: 12px;
+	height: 12px;
+	z-index: 86;
+    vertical-align: middle;
+}
+
+.alertLow {
+    background: rgba(255, 217, 0, 0.651) !important;
+    color: rgb(0, 0, 0);
+}
+
+.alertMed {
+    background: rgba(255, 145, 0, 0.774) !important;
+    color: rgb(0, 0, 0);
+}
+
+.alertHigh {
+    background: rgba(255, 0, 0, 0.767) !important;
+    color: rgb(0, 0, 0);
+}
+
+.inactive {
+    color: silver;
+}
+
+.navFull {
+    width: 100%;
+}
+
+.leaflet-container {
+    width: 100%;
+    height: 100%;
+}
+
+.btn-primary {
+    background-color: #4A6A9C;
+    border-color: #4A6A9C;
+}
+
+.page-item.active .page-link {
+    background-color: #4A6A9C;
+    border-color: #4A6A9C;
+}
+
+.page-link {
+    color: #4A6A9C;
+}
+
+#id_button {
+    background-color: #4A6A9C;
+}
+
+.login-head {
+    background-color: #4A6A9C;
+}
+
+.btn-secondary {
+    color: #373a3c;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.custom-link {
+    cursor: pointer;
+}

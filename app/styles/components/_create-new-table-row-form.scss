@@ -1,0 +1,105 @@
+.inst-buttons{
+    font-weight: 400;
+    text-align: right;
+    span {
+        padding: 3px 4px;
+        box-sizing: border-box;
+        border-radius: 3px;
+        font-size: 16px;
+        cursor: pointer;
+        @include transition(all 50ms ease-in-out);
+        &.add-new {
+            border: 1px solid $strong-grey;
+            color: $strong-grey;
+            &:hover {
+                background: #629a4f;
+                border-color: #629a4f;
+                color: #fff;
+            }
+        }
+        &.save-new {
+            color: #629a4f;
+            background: #fff;
+            border: 1px solid #fff;
+            &:hover {
+                background: transparent;
+                color: #fff;
+            }
+        }
+        &.cancel-new {
+            border: 1px solid #e3e3e3;
+            background: #e3e3e3;
+            color: $bright-red-deep;
+            &:hover {
+                background: transparent;
+                color: #e3e3e3;
+            }
+        }
+    }
+}
+
+.add-new-item{
+    font-weight: 400;
+    text-align: right;
+    span {
+        padding: 3px 4px;
+        box-sizing: border-box;
+        border-radius: 3px;
+        font-size: 14px;
+        cursor: pointer;
+        @include transition(all 50ms ease-in-out);
+        &.add-new {
+            border: 1px solid $strong-grey;
+            color: $strong-grey;
+            &:hover {
+                background: #629a4f;
+                border-color: #629a4f;
+                color: #fff;
+            }
+        }
+        &.save-new {
+            color: #629a4f;
+            background: #fff;
+            border: 1px solid #fff;
+            &:hover {
+                background: transparent;
+                color: #fff;
+            }
+        }
+        &.cancel-new {
+            border: 1px solid #e3e3e3;
+            background: #e3e3e3;
+            color: $bright-red-deep;
+            &:hover {
+                background: transparent;
+                color: #e3e3e3;
+            }
+        }
+    }
+}
+
+tr.newRecord {
+    background: $brand-primary !important;
+    color: #fff;
+    th {
+        border: none !important;
+    }
+}
+.newRecordDetails {
+    //background: lighten($brand-primary, 49) !important;
+    label {
+        font-weight: 400 !important;
+        &.bold {
+            font-weight: 700 !important;
+        }
+    }
+
+    .row_details {
+        select {
+            width: 100%;
+        }
+        .custom-checkbox {
+            margin-left: 0;
+        }
+    }
+}

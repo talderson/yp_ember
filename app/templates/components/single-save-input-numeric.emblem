@@ -1,0 +1,28 @@
+if isEditable
+    .editable-field
+        .form-group.row
+            .col-12
+                if isEditing
+                    if isTextInput
+                        input.form-control type="text" value=newValue oninput={action (mut newValue) value="target.value"} focus-out="'save' object" id="#{field}"
+                    if isTextarea
+                        textarea.form-control type="text" rows=3 value=newValue oninput={action (mut newValue) value="target.value"} focus-out="'save' object" id="#{field}"
+                    span.save click="'save' object"
+                        i aria-hidden="true"
+                            <BsTooltip @title="Save" @placement="top" />
+                            <FaIcon @icon="check" />
+                    span.cancel click="'cancel' object"
+                        i aria-hidden="true"
+                            <BsTooltip @title="Cancel" @placement="top" />
+                            <FaIcon @icon="times" />
+                else
+                    span.text click="edit"
+                        <BsTooltip @title="Edit" @placement="right"/>
+                        = get object field
+else
+    .non-editable-field
+        .form-group.row
+            .col-12
+                span.text click="edit"
+                    <BsTooltip @title="Read Only" @placement="right" />
+                    = get object field

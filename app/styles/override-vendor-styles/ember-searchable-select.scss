@@ -1,0 +1,29 @@
+$brand-primary: #4A6A9C;
+
+$searchable-select-clear-bg: #4A6A9C;
+.Searchable-select {
+    font-size: 1rem !important;
+}
+.Searchable-select__label {
+    min-width: 9.6rem;
+}
+.Searchable-select__label, .Searchable-select__input {
+    padding-top: 0.5em !important;
+    padding-bottom: 0.5em !important;
+    box-shadow: none !important;
+    border-color: #adadad !important;
+    // line-height: 1.25 !important;
+    line-height: .95rem !important;
+}
+.Searchable-select__search {
+    padding: 0.3em !important;
+}
+.Searchable-select__options-list {
+    padding: 5px 0 !important;
+}
+.Searchable-select__option--selected {
+    background: $brand-primary !important;
+}
+.Searchable-select__icon, .Searchable-select__option-label--selected {
+    color: #fff !important;
+}

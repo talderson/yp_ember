@@ -1,0 +1,24 @@
+if isEditable
+    .editable-field
+        .form-group.row
+            .col-12
+                if isEditing
+                    select.form-control id=inputFieldId onchange={ action "selectNewValue" value="target.value"}
+                        each selectOptionsArray as |selectOption|
+                            option selected={is-equal selectOption.key newValue} value="#{selectOption.key}" = selectOption.value
+                    span.save click="'cancel' object"
+                        i aria-hidden="true"
+                            <BsTooltip @title="Cancel" @placement="top" />
+                            <FaIcon @icon="times" />
+
+                else
+                    span.text click="edit"
+                        <BsTooltip @title="Edit" @placement="right"/>
+                        = get object field
+else
+    .non-editable-field
+        .form-group.row
+            .col-12
+                span.text click="edit"
+                    <BsTooltip @title="Read Only" @placement="right" />
+                    = get object field

@@ -1,0 +1,117 @@
+table.row_details
+    tbody style="display:contents"
+        tr
+            td.td_details colspan=4
+                p.warning-text.empty-anchor-warning.italic
+                    | Please note, HID is not implemented at this time, you can add the instrument, but its details and functionality are not guaranteed in this version.
+        tr
+            td.td_details colspan="2" style="vertical-align:top"
+                table.row_details.form-inline
+                    tbody 
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectName" Name:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        input.form-control type="text" value=newInstrumentObject.Name oninput={action (mut newInstrumentObject.name) value="target.value"} id="newInstrumentObjectName"
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectProject" Project:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        input.form-control type="text" value=newInstrumentObject.project oninput={action (mut newInstrumentObject.project) value="target.value"} id="newInstrumentObjectProject"
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectLocation" Location:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        input.form-control type="text" value=newInstrumentObject.location oninput={action (mut newInstrumentObject.location) value="target.value"} id="newInstrumentObjectLocation"
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectCoordinates" Coordinates:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        .row.no-gutters
+                                            .col-4
+                                                input.form-control type="text" value=newInstrumentObject.east oninput={action (mut newInstrumentObject.east) value="target.value"} id="newInstrumentObjectEast"
+                                            .col-4
+                                                input.form-control type="text" value=newInstrumentObject.north oninput={action (mut newInstrumentObject.north) value="target.value"} id="newInstrumentObjectNorth"
+                                            .col-4
+                                                input.form-control type="text" value=newInstrumentObject.depth oninput={action (mut newInstrumentObject.depth) value="target.value"} id="newInstrumentObjectDepth"
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectAzimuth" Azimuth:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        input.form-control type="text" value=newInstrumentObject.azimuth oninput={action (mut newInstrumentObject.azimuth) value="target.value"} id="newInstrumentObjectAzimuth"
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectDip" Dip:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        input.form-control type="text" value=newInstrumentObject.dip oninput={action (mut newInstrumentObject.dip) value="target.value"} id="newInstrumentObjectDip"
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectLevel" Level:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        input.form-control type="text" value=newInstrumentObject.level oninput={action (mut newInstrumentObject.level) value="target.value"} id="newInstrumentObjectLevel"
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectBorehole" Borehole:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        input.form-control type="text" value=newInstrumentObject.borehole oninput={action (mut newInstrumentObject.borehole) value="target.value"} id="newInstrumentObjectBorehole"
+            td.td_details colspan="3" style="vertical-align:top"
+                table.row_details.form-inline
+                    tbody
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectZeroTimestamp" Zero timestamp:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        .datetime-picker-component
+                                            input type="datetime-local" step="1" oninput={action (mut zeroTimestamp) value="target.value"} id="zeroTimestamp"
+                                            
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectInstallDate" Install date:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        .datetime-picker-component
+                                            input type="datetime-local" step="1" oninput={action (mut installDate) value="target.value"} id="installDate"
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectInstalledBy" Installed by:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        input.form-control type="text" value=newInstrumentObject.installedBy oninput={action (mut newInstrumentObject.installedBy) value="target.value"} id="newInstrumentObjectInstalledBy"
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectPurpose" Purpose:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        input.form-control type="text" value=newInstrumentObject.purpose oninput={action (mut newInstrumentObject.purpose) value="target.value"} id="newInstrumentObjectPurpose"
+                        tr
+                            td
+                                label.col-12.col-form-label for="newInstrumentObjectNotes" Notes:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        textarea.form-control type="text" value=newInstrumentObject.notes oninput={action (mut newInstrumentObject.notes) value="target.value"} id="newInstrumentObjectNotes"
+        tr
+            td.add-new-item id="add-new" colspan="3" style="padding-bottom:5px"
+                span.add-new click="createInstrument"
+                    |  Create

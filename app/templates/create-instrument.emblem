@@ -1,0 +1,75 @@
+= page-title "Create Instrument"
+.container-fluid style="padding-top: 1rem; padding-bottom: 1rem;"
+    = bread-crumbs
+    table style="width: 100%"
+        if isVisibleError
+            tr.details
+                td.td_details.error colspan="6"
+                    label.col-12.col-form-label for="error_message" There was an error creating the instrument.
+                    if duplicateError
+                        label.col-12.col-form-label id="error_message_details" Either you do not have permission or the instrument ID already exists.
+                    else if typeError
+                        label.col-12.col-form-label id="error_message_details" You must select an instrument type.
+                    else if fieldError
+                        label.col-12.col-form-label id="error_message_details" A required field was not entered. Bolded fields are required.
+                    else if authError
+                        label.col-12.col-form-label id="error_message_details" Either you do not have permission or the instrument ID already exists.
+
+        tr.details.newRecordDetails
+            td.td_details
+                table.row_details.form-inline style="padding-top: 2rem; padding-left: 2rem; padding-bottom: 1rem;"
+                    tbody
+                        tr 
+                            td
+                                label.col-12.col-form-label.bold for="newInstrumentObjectId" style="font-size: 23px;" Instrument ID:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        input.form-control type="text" oninput={action (mut id) value="target.value"} id="newInstrumentObjectId"
+            td.td_details
+                table.row_details.form-inline style="padding-top: 2rem; padding-left: 2rem; padding-bottom: 1rem;"
+                    tbody
+                        tr
+                            td
+                                label.col-12.col-form-label.bold for="newInstrumentObjectType" style="font-size: 23px;" Instrument type:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        select.form-control id="newInstrumentObjectType" onchange={ action "choseForm" value="target.value"}
+                                            option value=""
+                                                | Select an Instrument
+                                            each @model.instrumentTypes as |selectOption|
+                                                option selected={eq selectOption.id instType} value="#{selectOption.id}" = selectOption.title
+        tr.details.newRecordDetails
+            td.td_details colspan=3 style="padding-left:2rem; padding-right:2rem; padding-bottom: 1rem; margin-bottom: 1rem;"
+                if (eq instType "1")
+                    = pack/create-instrument headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType "2")
+                    = cable/create-instrument headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType "3")
+                    = rebar/create-instrument headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType "4")
+                    = pack/create-instrument headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType "5")
+                    = pack/create-instrument headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType "6")
+                    = tilt/create-instrument headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType "7")
+                    = slough/create-instrument headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType "8")
+                    = thermo/create-instrument headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType "9")
+                    = piezo/create-instrument headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType "10")
+                    = hid/create-instrument headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType "11")
+                    = pack/create-instrument headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType "12")
+                    = wire/create-instrument vwModels=@model.vwModels vwVendors=@model.vwVendors headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType "13")
+                    = adict/create-instrument headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType "15")
+                    = vibe/create-instrument headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType "16")
+                    = micro/create-instrument headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+= outlet

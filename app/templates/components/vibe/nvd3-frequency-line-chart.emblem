@@ -1,0 +1,4 @@
+.nvd3-chart-tooltip-container id=chartId
+    %svg.nvd3-frequency-line-chart-svg width="1100" height="450"
+
+    .mb-1

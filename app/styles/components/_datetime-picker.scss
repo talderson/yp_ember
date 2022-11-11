@@ -1,0 +1,50 @@
+.datetime-picker-component {
+    .glyphicon {
+        font: normal normal normal 14px/1 FontAwesome;
+        &:before {
+            font-size: 1.2rem;
+            line-height: 0;
+            vertical-align: -.1rem;
+        }
+    }
+    .glyphicon-time:before {
+        content: "\f017" !important;
+    }
+    .glyphicon-trash:before {
+        content: "\f1f8" !important;
+    }
+    .glyphicon-chevron-right:before {
+        content: "\f054" !important;
+    }
+    .glyphicon-chevron-left:before {
+        content: "\f053" !important;
+    }
+    .glyphicon-calendar:before {
+        content: "\f073";
+    }
+    .glyphicon-chevron-up:before {
+        content: "\f077";
+        vertical-align: -1.2rem;
+    }
+    .glyphicon-chevron-down:before {
+        content: "\f078";
+        vertical-align: -1.2rem;
+    }
+    .bootstrap-datetimepicker-widget {
+        max-width: 270px;
+        table td.day {
+            width: 30px;
+            height: 30px;
+        }
+    }
+    table th, .table th {
+        border: none !important;
+        padding: 0;
+    }
+    table thead > tr {
+        height: 1.8rem;
+        th {
+            line-height: 1.8rem;
+        }
+    }
+}

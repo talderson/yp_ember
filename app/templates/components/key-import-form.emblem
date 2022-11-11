@@ -1,0 +1,27 @@
+if isVisibleImportKeyForm
+    table.table.table-striped.responsive-table
+        tbody
+            tr.active.newRecord
+                td colspan="3" Upload licence key file
+                th.add-new-item
+                    span.save-new click="importKey"
+                        i.fa.fa-check aria-hidden="true"
+                        |  Upload
+            tr.details.newRecordDetails
+                td.td_details colspan="5"
+                    table.row_details.form-inline
+                        tbody
+                            tr
+                                td
+                                    label.col-12.col-form-label for="newKeyFile" File:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            = key-upload isSubmitting=isSubmitting errorHappened="errorHappened"
+                                td width="50px" colspan="1"
+                    if loading
+                        div class="pulse_loader"
+            if isVisibleError
+                tr.details
+                    td.td_details.error colspan="6"
+                        label.col-12.col-form-label for="error_message" There was an error importing the licence key data.

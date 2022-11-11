@@ -1,0 +1,32 @@
+if (eq @instrumentType '1')
+    = pack/spatial-chart-dropdown selected=@selected instrumentId=@instrumentId
+else if (eq @instrumentType '2')
+    = cable/spatial-chart-dropdown selected=@selected instrumentId=@instrumentId
+else if (eq @instrumentType '3')
+    = rebar/spatial-chart-dropdown selected=@selected instrumentId=@instrumentId
+else if (eq @instrumentType '4')
+    = pack/spatial-chart-dropdown selected=@selected instrumentId=@instrumentId
+else if (eq @instrumentType '5')
+    = pack/spatial-chart-dropdown selected=@selected instrumentId=@instrumentId
+else if (eq @instrumentType '6')
+    = tilt/spatial-chart-dropdown selected=@selected instrumentId=@instrumentId
+else if (eq @instrumentType '7')
+    = slough/spatial-chart-dropdown selected=@selected instrumentId=@instrumentId
+else if (eq @instrumentType '8')
+    = thermo/spatial-chart-dropdown selected=@selected instrumentId=@instrumentId
+else if (eq @instrumentType '9')
+    = piezo/spatial-chart-dropdown selected=@selected instrumentId=@instrumentId
+else if (eq @instrumentType '10')
+    = hid/spatial-chart-dropdown selected=@selected instrumentId=@instrumentId
+else if (eq @instrumentType '11')
+    = pack/spatial-chart-dropdown selected=@selected instrumentId=@instrumentId
+else if (eq @instrumentType '12')
+    | Wire
+else if (eq @instrumentType '13')
+    = adict/spatial-chart-dropdown selected=@selected instrumentId=@instrumentId
+else if (eq @instrumentType '15')
+    = vibe/spatial-chart-dropdown selected=@selected instrumentId=@instrumentId
+else if (eq @instrumentType '16')
+    = micro/spatial-chart-dropdown selected=@selected instrumentId=@instrumentId
+else
+    = pack/spatial-chart-dropdown selected='Displacement'

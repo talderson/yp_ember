@@ -1,0 +1,75 @@
+.editable-field
+    .form-group.row
+        .col-12
+            unless isAllAnchorsPopulated
+                p.warning-text.empty-anchor-warning.italic click="edit"
+                    | Please add all instrument anchors! They are needed to make calculations for graphs.
+            if isEditing
+                ul class="anchor-distances-input {{if isToe 'anchor-distances-input has-tooltip-info' 'has-tooltip-info reverse-anchors-counter'}}" style=anchorsCSSCounteStyle
+                    li
+                        label.col-12.toe-label Borehole Toe
+                    if isToe
+                        li
+                            span.head.toe
+                    else
+                        li.tail
+                            span.tail.collar
+                    each sortedInstrumentAnchors as |anchor i|
+                        unless anchor.isDeleted
+                            li
+                                span.position
+                                span.instrument-pipe
+                                input.form-control type="text" value=anchor.distance oninput={action (action 'inputNewValue' anchor) value="target.value"} focus-out="'save' object" id="#{field}"
+                                
+                                    / = i // done via css counter
+                    if isCollar
+                        li
+                            span.head.collar
+                    else
+                        li.tail
+                            span.tail.toe
+                    li
+                        label.col-12.collar-label Borehole Collar
+                    
+                if isAllAnchorsPopulated
+                    span.save click="'save' object"
+                        i.has-tooltip-info aria-hidden="true" data-toggle="tooltip" data-placement="top" 
+                            <BsTooltip @title="Save" @placement="top" />
+                            <FaIcon @icon="check" />
+                else
+                    span.save.inactive
+                        i.has-tooltip-info aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                            <BsTooltip @title="Input all anchors before saving!" @placement="top" />
+                            <FaIcon @icon="check" />
+                span.cancel click="'cancel' object allowedKeys='alt'"
+                    i.has-tooltip-info aria-hidden="true" data-toggle="tooltip" data-placement="top"
+                        <BsTooltip @title="Cancel" @placement="top" />
+                        <FaIcon @icon="times" />
+            else
+                ul class="{{if isToe 'anchor-distances-input has-tooltip-info' 'anchor-distances-input has-tooltip-info reverse-anchors-counter'}}" click="edit" data-toggle="tooltip" data-placement="top" title="Click on instrument to edit" style=anchorsCSSCounteStyle
+                    li
+                        label.col-12.toe-label Borehole Toe
+                    if isToe
+                        li
+                            span.head.toe
+                    else
+                        li.tail
+                            span.tail.collar
+                    each sortedInstrumentAnchors as |anchor i|
+                        unless anchor.isDeleted
+                            li.anchor
+                                span.position
+                                span.instrument-pipe
+                                if (if-empty-string-or-null (get anchor 'distance'))
+                                    span.anchor-distance.warning-text.empty-anchor-warning NULL
+                                else
+                                    span.anchor-distance = get anchor 'distance'
+                                    / = i // counter incrementing done via css counter
+                    if isCollar
+                        li
+                            span.head.collar
+                    else
+                        li.tail
+                            span.tail.toe
+                    li
+                        label.col-12.collar-label Borehole Collar

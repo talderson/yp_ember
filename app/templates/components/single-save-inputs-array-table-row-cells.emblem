@@ -1,0 +1,52 @@
+if isEditing
+    td.noWrap data-title="Date"
+        = moment-format displacementValueObject.id 'YYYY-MM-DD HH:mm:ss.SSS'
+
+    = each-in @displacementValueObject.values as |key value|
+        td data-title=key
+            input.form-control.inside-table-cell type="text" value=value id="df#{key}" oninput={action (mut (get displacementValueObjectValues key)) value="target.value"}
+
+    unless @isWire
+        td data-title="Temperature"
+            input.form-control.inside-table-cell type="text" value=temperatureObjectValue id="df#{key}" oninput={action (mut temperatureObjectValue) value="target.value"}
+
+    td.crud-td
+        span.save click="save"
+            <FaIcon @icon="check" />
+        span.cancel click="cancel"
+            <FaIcon @icon="times" />
+
+else
+    td.noWrap data-title="Date"
+        = moment-format @displacementValueObject.id 'YYYY-MM-DD HH:mm:ss.SSS'
+
+    = each-in @displacementValueObject.values as |key value|
+        td data-title=key
+            if (is-greater-than value strokeLength)
+                span.text.red-text.bold.has-tooltip-info data-toggle="tooltip" data-placement="right" title="Value is above Stroke Length. Graphs will use previous value."
+                    | &uArr; 
+            span.text.has-tooltip-info click="edit" data-toggle="tooltip" data-placement="right" title="Edit"
+                if isFine
+                    = format-number value 3
+                else
+                    = format-number value 2
+
+    unless @isWire
+        td data-title="Temperature"
+            span.text.has-tooltip-info click="edit" data-toggle="tooltip" data-placement="right" title="Edit"
+                = temperatureObjectValue
+
+    td.crud-td
+        span.crud.remove click="'toggleRowDeleteConfirmationDialog' displacementValueObject.id"
+            <FaIcon @icon="trash" />
+        span.crud.edit.has-tooltip-info click="edit" data-toggle="tooltip" data-placement="right" title="Edit"
+            <FaIcon @icon="pencil-alt" />
+        div class="delete-confirmation {{active-class (get-array-element isRowDeleteConfirmationDialog displacementValueObject.id)}}"
+            span.crud-delete-message
+                span
+                    small Delete it?
+                    small Are you sure?
+            span.crud-delete-action.crud-delete-confirm click="remove"
+                | Yes
+            span.crud-delete-action.crud-delete-cancel click="'toggleRowDeleteConfirmationDialog' displacementValueObject.id"
+                | No

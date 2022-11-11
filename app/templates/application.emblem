@@ -1,0 +1,7 @@
+= page-title "VantagePoint"
+= navbar
+
+= outlet
+footer.footer
+    .container-fluid
+        span.text-muted Copyright {{current-date 'Y'}} YieldPoint Inc. All rights reserved.

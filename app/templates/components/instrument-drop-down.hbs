@@ -1,0 +1,21 @@
+{{#if @isEditable}}
+    <BsDropdown as |dd|>
+        <dd.button>
+            {{#if inst_id}}
+                {{inst_id}}
+            {{else}}
+                Select
+            {{/if}}
+            <span class="caret"></span>
+        </dd.button>
+        <dd.menu as |ddm|>
+            {{#each @instruments as |instrument|}}
+                <ddm.item>
+                    <a class="dropdown-item" onclick={{action "setID" instrument dd.closeDropdown}}>{{instrument.id}}</a>
+                </ddm.item>
+            {{/each}}
+        </dd.menu>
+    </BsDropdown>
+{{else}}
+    {{@instrument.id}}
+{{/if}}

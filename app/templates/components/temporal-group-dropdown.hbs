@@ -1,0 +1,29 @@
+<BsDropdown as |dd|>
+  <dd.button>
+    {{#if @window}}
+      {{#if (is-equal @window 60)}}
+        1 Hour
+      {{else if (is-equal @window 480)}}
+        8 Hours
+      {{else if (is-equal @window 1440)}}
+        24 Hours
+      {{else}}
+        {{@window}}
+      {{/if}}
+    {{else}}
+      None
+    {{/if}}
+    <span class="caret"></span>
+  </dd.button>
+  <dd.menu as |ddm|>
+      <ddm.item>
+        {{#link-to 'temporal-graphs.temporal-graph' instrumentId modelName (query-params window=60) class="dropdown-item"}}1 Hour{{/link-to}}
+      </ddm.item>
+      <ddm.item>
+        {{#link-to 'temporal-graphs.temporal-graph' instrumentId modelName (query-params window=480) class="dropdown-item"}}8 Hours{{/link-to}}
+      </ddm.item>
+      <ddm.item>
+        {{#link-to 'temporal-graphs.temporal-graph' instrumentId modelName (query-params window=1440) class="dropdown-item"}}24 Hours{{/link-to}}
+      </ddm.item>
+  </dd.menu>
+</BsDropdown>

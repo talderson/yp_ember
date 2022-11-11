@@ -1,0 +1,79 @@
+= page-title "Create Alert"
+.container-fluid style="padding-top: 1rem;"
+    if breadCrumbs
+        = bread-crumbs
+    table style="width: 100%"
+        if isVisibleError
+            tr.details
+                td.td_details.error colspan="6" style="padding-top: 1rem; padding-bottom: 1rem;"
+                    label.col-12.col-form-label for="error_message" There was an error creating the alert.
+                    if emptyBoldError
+                        label.col-12.col-form-label id="error_message_details"  A required field was not entered. Bolded fields are required.
+                    else if noActChError
+                        label.col-12.col-form-label id="error_message_details" Select at least one active channel.
+                    else if nonNumericValueError
+                        label.col-12.col-form-label id="error_message_details" Ensure that your value entry only contains a numeric values (0-9) or a decimal point (".")
+                    else if wLError
+                        label.col-12.col-form-label id="error_message_details" Enter a window length larger than 1 if method is not immediate.
+                    else if wLNegError
+                        label.col-12.col-form-label id="error_message_details" Enter a window length larger than or equal to 1 if method is not immediate.
+                    else if targetError
+                        label.col-12.col-form-label id="error_message_details" Enter a target.
+                    else if phoneNumError
+                        label.col-12.col-form-label id="error_message_details" Enter a valid phone number (numeric values only) followed by carrier.
+                        | To see available carriers, click on the "Target (Phone #):" link 
+                    else if authError
+                        label.col-12.col-form-label id="error_message_details" You do not have permission to create an alert.
+
+
+
+        tr.details.newRecordDetails
+            td.td_details style="padding-top: 2rem; padding-left: 2rem; padding-bottom: 1.5rem;"
+                table.row_details.form-inline
+                    tbody
+                        tr
+                            td
+                                label.col-12.col-form-label.bold for="newInstrumentObjectId" style="font-size: 20px;" Instrument ID:
+                            td.input 
+                                .form-group.row
+                                    .col-2 
+                                        if @model.instrument
+                                            label {{id}}
+                                        else
+                                            searchable-select content=instruments selected=initialInstrumentSelection id="instrumentSelect" sortBy="title" prompt="Instrument ID" searchPrompt="Filter" isClearable=false on-change=(action "setID")
+        tr.details.newRecordDetails
+            td.td_details colspan=3 style="padding-left:2rem; padding-right:1rem"
+                if (eq instType 1)
+                    = pack/create-alert headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType 2)
+                    = cable/create-alert headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType 3)
+                    = rebar/create-alert headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType 4)
+                    = pack/create-alert headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType 5)
+                    = pack/create-alert headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType 6)
+                    = tilt/create-alert headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType 7)
+                    = slough/create-alert headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType 8)
+                    = thermo/create-alert headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType 9)
+                    = piezo/create-alert headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType 10)
+                    = hid/create-alert headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType 11)
+                    = pack/create-alert headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType 12)
+                    = wire/create-alert headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType 13)
+                    = adict/create-alert headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType 14)
+                    | Wire
+                if (eq instType 15)
+                    = vibe/create-alert headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+                if (eq instType 16)
+                    = micro/create-alert headAts=@model.headAts typeID=instType id=id store=store submit=(action 'submit') setError=(action 'setError')
+
+= outlet

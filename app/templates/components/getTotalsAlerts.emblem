@@ -1,0 +1,25 @@
+td 
+    td
+        td
+            a style="font-size: 1rem; color: black; font-family: Trebuchet MS" href="/alerts/" title="List of all alerts" Total:
+        td
+            span style="margin-left: 5px; font-size: 1rem;" = @model.stats.total
+    td 
+        td style="vertical-align:middle"
+            div id="circleSmall" style="margin-left: 2rem; margin-right: 3px; margin-top: 2px;"
+        td
+            a style="font-size: 1rem; color: black; font-family: Trebuchet MS" href="/alerts/?search=active" title="List of active alerts" Active:
+        td
+            span style="margin-left: 5px; font-size: 1rem;=" = @model.stats.active
+    td            
+        
+        td 
+            td style="padding-left: 2rem"
+                div id="circle1" style="margin-top: 4px; position: relative; top:19px; right: 8px;"
+                div id="circle2" style="margin-top: 4px; position: relative; top:16px; right: 14px;"
+                div id="circle3" style="margin-top: 4px; position: relative;"
+            
+        td
+            a style="font-size: 1rem; color: black; font-family: Trebuchet MS" href="/alerts/?search=triggered" title="List of triggered alerts" Triggered:
+        td
+            span style="margin-left: 5px; font-size: 1rem;" = @model.stats.alert

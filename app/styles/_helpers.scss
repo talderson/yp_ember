@@ -1,0 +1,97 @@
+// disabled select for text
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.noWrap {
+    white-space: nowrap;
+}
+
+// Rest list style
+.reset_list_style {
+    list-style: none;
+    padding: 0;
+    margin-left: 0;
+}
+
+
+.v_centered_abs_pos, .h_centered_abs_pos {
+  position: absolute;
+}
+
+.v_centered_abs_pos {
+    // this works only for limited height elements
+    // top: 0;
+    // bottom: 0;
+    // margin-top: auto;
+    // margin-bottom: auto;
+
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.h_centered_abs_pos {
+    // this works only for limited width elements
+    right: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.pull-right {
+    float: right !important;
+}
+.pull-left {
+    float: left !important;
+}
+
+// Spacing
+.mt-05 {
+    margin-top: 0.5rem;
+}
+.mb-05 {
+    margin-bottom: 0.5rem;
+}
+.mr-05 {
+    margin-right: 0.5rem;
+}
+.ml-05 {
+    margin-left: 0.5rem;
+}
+.pt-05 {
+    padding-top: 0.5rem;
+}
+.pb-05 {
+    padding-bottom: 0.5rem;
+}
+.pr-05 {
+    padding-right: 0.5rem;
+}
+.pl-05 {
+    padding-left: 0.5rem;
+}
+
+// Text formatting
+.warning-text {
+    color: $warn-red-light;
+}
+.italic {
+    font-style: italic;
+}
+.underline-heading {
+    border-bottom: 1px solid $strong-grey;
+}
+.link {
+    text-decoration: underline; 
+    cursor: pointer; 
+    color:blue;
+}
+.link:hover {
+    color:red;
+}

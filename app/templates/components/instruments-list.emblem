@@ -1,0 +1,56 @@
+table style="width: 100%;" hidden=true id="instrumentListError"
+    tr.details
+        td.td_details.error colspan="6" style="padding-top: 1rem; padding-bottom: 1rem;"
+            label.col-12.col-form-label id="error_message_details" You do not have permission to delete an instrument.
+
+table.table.table-striped.responsive-table
+    thead
+        tr
+            = sortable-table-header title='Instrument ID' sortProperty='id' selectedSortProperty=ordering sort=@sortBy
+            = sortable-table-header title='Name' sortProperty='name' selectedSortProperty=ordering sort=@sortBy
+            = sortable-table-header title='Type' sortProperty='instrumentType' selectedSortProperty=ordering sort=@sortBy
+            = sortable-table-header title='Level' sortProperty='level' selectedSortProperty=ordering sort=@sortBy
+            = sortable-table-header title='Project' sortProperty='project' selectedSortProperty=ordering sort=@sortBy
+            = sortable-table-header title='Location' sortProperty='location' selectedSortProperty=ordering sort=@sortBy
+            if licenceIsValid
+                th.add-new-item id="add-new"
+                    span.add-new click="createInstrument"
+                        <FaIcon @icon="plus" />
+                        |  New
+            if (not licenceIsValid)
+                th.add-new-item id="add-new"
+
+    tbody
+        each @instruments as |tableRow|
+            tr
+                td
+                    = link-to "edit-instrument" tableRow.id: tableRow.id
+                td = tableRow.name
+                td = tableRow.instrumentType.title
+                td = tableRow.level
+                td = tableRow.project
+                td = tableRow.location
+                td.crud-td
+                    span.crud.remove click="'toggleRowDeleteConfirmationDialog' tableRow.id"
+                        <FaIcon @icon="trash" />
+
+                    unless ( is-instrument-anchors-set tableRow.anchors )
+                        span.crud.warning 
+                            <BsTooltip @title="Instrument anchors are not set!" @placement="top" />
+                            <FaIcon @icon="exclamation-triangle" />
+
+                    unless ( is-stroke-length-required-and-set tableRow )
+                        span.crud.warning 
+                            <BsTooltip @title="Instrument Stroke Length is not set!" @placement="top" />
+                            <FaIcon @icon="exclamation-triangle" />
+
+                    div class="delete-confirmation {{active-class (get isRowDeleteConfirmationDialog tableRow.id)}}"
+                        span.crud-delete-message
+                            span
+                                small All associated data
+                                small will be deleted too!
+                        span.crud-delete-action.crud-delete-confirm click="'remove' model.instruments tableRow"
+                            | Yes
+                        span.crud-delete-action.crud-delete-cancel click="'toggleRowDeleteConfirmationDialog' tableRow.id"
+                            | No
+

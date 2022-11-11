@@ -1,0 +1,88 @@
+<div>
+    <div class="container-fluid">
+        <a class="logo" href='/'>
+            <img width="50%" src="/assets/images/logo.png" />
+            <img class="right" height="80px" src="/assets/images/customer_logo/logo.png" onerror="this.onerror=null;this.src='/assets/images/nologo.png';"/>
+        </a>
+    </div>
+    <BsNavbar as |navbar|>
+    <div class="container-fluid">
+        <div>
+            <navbar.toggle />
+        </div>
+        <navbar.content>
+            <navbar.nav class="navFull" as |nav|>
+            <nav.item>
+                <nav.linkTo @route="index"><FaIcon @icon="globe" /> Dashboard</nav.linkTo>
+            </nav.item>
+            <nav.item>
+                <nav.linkTo @route="instruments"><FaIcon @icon="ruler" /> Instruments</nav.linkTo>
+            </nav.item>
+            {{#if hasAlerts}}
+                <nav.item>
+                    <nav.linkTo @route="alerts"><FaIcon @icon="bell" /> Alerts</nav.linkTo>
+                </nav.item>
+            {{/if}}
+            <nav.item>
+                <nav.linkTo @route="seismic-events"><FaIcon @icon="thumbtack" /> Seismic events</nav.linkTo>
+            </nav.item>
+            <nav.item>
+                <nav.linkTo @route="blast-events"><FaIcon @icon="bomb" /> Blast events</nav.linkTo>
+            </nav.item>
+            <nav.item>
+                <nav.linkTo @route="vibration-events"><FaIcon @icon="wave-square" /> BluVibe events</nav.linkTo>
+            </nav.item>
+            <nav.item style="margin-left: auto;">
+                <nav.linkTo @route="settings"><FaIcon @icon="cog" /> Settings</nav.linkTo>
+            </nav.item>
+            {{#if this.session.isAuthenticated}}
+                <nav.dropdown as |dd|>
+                    <dd.toggle>{{username}} <span class="caret"></span></dd.toggle>
+                    <dd.menu as |ddm|>
+                        <ddm.item><a class="nav-link custom-link" href="/admin" onclick="javascript:event.target.port=8000" target="_blank"><FaIcon @icon="users" /> Manage Users</a></ddm.item>
+                        <ddm.item><a class="nav-link custom-link" {{action "logout"}}><FaIcon @icon="sign-out-alt" /> Logout</a></ddm.item>
+                    </dd.menu>
+                </nav.dropdown>
+            {{/if}}
+            </navbar.nav>
+        </navbar.content>
+    </div>
+    </BsNavbar>
+    {{#if isValid}}
+        {{#if false}}
+            <div class="container-fluid error">
+                <a>
+                    Your licence does not include this module.
+                    <br> If you would like this module, please contact YieldPoint for further details.
+                    <br> 700 Progress Ave.
+                    <br> Kingston, ON. K7M 4W9
+                    <br> 1 613-531-4722
+                    <br> <a href="mailto:sales@yieldpoint.com">sales@yieldpoint.com</a>
+                </a>
+            </div>
+        {{/if}}
+        {{#unless isWithinLimit}}
+            <div class="container-fluid error">
+                <a>
+                    There are more active instruments than your licence allows for.
+                    <br> Please disable any outdated instruments, update your licence {{#link-to "keys"}}here{{/link-to}} or contact YieldPoint to increase your limit.
+                    <br> 700 Progress Ave.
+                    <br> Kingston, ON. K7M 4W9
+                    <br> 1 613-531-4722
+                    <br> <a href="mailto:sales@yieldpoint.com">sales@yieldpoint.com</a>
+                </a>
+            </div>
+        {{/unless}}
+    {{else}}
+        <div class="container-fluid error">
+            <a>
+                You currently have no active licence.
+                <br> Please install a new licence {{#link-to "keys"}}here{{/link-to}} or contact YieldPoint for further details.
+                <br> 700 Progress Ave.
+                <br> Kingston, ON. K7M 4W9
+                <br> 1 613-531-4722
+                <br> <a href="mailto:sales@yieldpoint.com">sales@yieldpoint.com</a>
+            </a>
+        </div>
+    {{/if}}
+</div>

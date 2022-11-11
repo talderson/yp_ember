@@ -1,0 +1,67 @@
+= page-title "Instrument " @model.instrument.id
+.container-fluid style="padding-bottom: 1rem;"
+    = bread-crumbs
+
+    table style="width: 100%; margin-bottom: 1rem;" hidden=true id="instrumentEditError"
+            tr.details
+                td.td_details.error colspan="6" style="padding-top: 1rem; padding-bottom: 1rem;"
+                    label.col-12.col-form-label id="error_message_details" You do not have permission to edit an instrument.
+
+    table style="width: 100%;"
+        tr.details
+            td.td_details style="padding-top: 2rem; padding-left: 2rem; padding-bottom: 1rem;"
+                table.row_details.form-inline
+                    tbody
+                        tr
+                            td
+                                label.col-12.col-form-label for="id" style="font-size: 25px;" Instrument ID:
+                            td.input
+                                = single-save-input-InstType object=@model.instrument inputType='text' field='id' isEditable=false
+            td.td_details style="padding-top: 2rem; padding-bottom: 1rem;"
+                table.row_details.form-inline
+                    tbody
+                        tr
+                            td
+                                label.col-12.col-form-label for="instrumentType" style="font-size: 25px" Instrument type:
+                            td.input style="font-size:23px;"
+                                    = single-save-select selectOptions=@model.instrumentTypes selectOptionsKyes="id,title" object=@model.instrument.instrumentType parentObject=@model.instrument field='title' valueSource='id' inputFieldId='instrumentType' isEditable=true 
+                                    /= single-save-input object=@model.instrument inputType='text' field='instrumentType.title' isEditable=false
+
+            td.td_details
+                table.row_details.form-inline
+            
+        tr.details
+            td.td_details colspan=3 style="padding-left:2rem; padding-right:2rem; padding-bottom: 2rem;"
+                if (eq @model.instrument.instrumentTypeID 1)
+                    = pack/edit-instrument instrument=@model.instrument headAts=@model.headAts hasGraphs=hasGraphs hasAlerts=hasAlerts
+                if (eq @model.instrument.instrumentTypeID 2)
+                    = cable/edit-instrument instrument=@model.instrument headAts=@model.headAts hasGraphs=hasGraphs hasAlerts=hasAlerts
+                if (eq @model.instrument.instrumentTypeID 3)
+                    = rebar/edit-instrument instrument=@model.instrument headAts=@model.headAts hasGraphs=hasGraphs hasAlerts=hasAlerts
+                if (eq @model.instrument.instrumentTypeID 4)
+                    = pack/edit-instrument instrument=@model.instrument headAts=@model.headAts hasGraphs=hasGraphs hasAlerts=hasAlerts
+                if (eq @model.instrument.instrumentTypeID 5)
+                    = pack/edit-instrument instrument=@model.instrument headAts=@model.headAts hasGraphs=hasGraphs hasAlerts=hasAlerts
+                if (eq @model.instrument.instrumentTypeID 6)
+                    = tilt/edit-instrument instrument=@model.instrument headAts=@model.headAts hasGraphs=hasGraphs hasAlerts=hasAlerts
+                if (eq @model.instrument.instrumentTypeID 7)
+                    = slough/edit-instrument instrument=@model.instrument headAts=@model.headAts hasGraphs=hasGraphs hasAlerts=hasAlerts
+                if (eq @model.instrument.instrumentTypeID 8)
+                    = thermo/edit-instrument instrument=@model.instrument headAts=@model.headAts hasGraphs=hasGraphs hasAlerts=hasAlerts
+                if (eq @model.instrument.instrumentTypeID 9)
+                    = piezo/edit-instrument instrument=@model.instrument headAts=@model.headAts hasGraphs=hasGraphs hasAlerts=hasAlerts
+                if (eq @model.instrument.instrumentTypeID 10)
+                    = hid/edit-instrument instrument=@model.instrument headAts=@model.headAts hasGraphs=hasGraphs hasAlerts=hasAlerts
+                if (eq @model.instrument.instrumentTypeID 11)
+                    = pack/edit-instrument instrument=@model.instrument headAts=@model.headAts hasGraphs=hasGraphs hasAlerts=hasAlerts
+                if (eq @model.instrument.instrumentTypeID 12)
+                    = wire/edit-instrument instrument=@model.instrument headAts=@model.headAts vwModels=@model.vwModels vwVendors=@model.vwVendors hasGraphs=hasGraphs hasAlerts=hasAlerts
+                if (eq @model.instrument.instrumentTypeID 13) 
+                    = adict/edit-instrument instrument=@model.instrument headAts=@model.headAts hasGraphs=hasGraphs hasAlerts=hasAlerts
+                if (eq @model.instrument.instrumentTypeID 14)
+                    | Analog
+                if (eq @model.instrument.instrumentTypeID 15)
+                    = vibe/edit-instrument instrument=@model.instrument headAts=@model.headAts hasGraphs=hasGraphs hasAlerts=false
+                if (eq @model.instrument.instrumentTypeID 16)
+                    = micro/edit-instrument instrument=@model.instrument headAts=@model.headAts hasGraphs=hasGraphs hasAlerts=hasAlerts
+= outlet

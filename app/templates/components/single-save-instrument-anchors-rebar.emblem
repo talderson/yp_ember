@@ -1,0 +1,32 @@
+.editable-field
+    .form-group.row
+        .col-12
+            unless isAllAnchorsPopulated
+                p.warning-text.empty-anchor-warning.italic click="edit"
+                    | Please add all instrument anchors! They are needed to make calculations for graphs.
+        
+            ul class="{{if isToe 'anchor-distances-input has-tooltip-info' 'anchor-distances-input has-tooltip-info reverse-anchors-counter'}}" click="edit" data-toggle="tooltip" data-placement="top" title="Change properties to update." style=anchorsCSSCounteStyle
+                li
+                    label.col-12.toe-label Borehole Toe
+                if isToe
+                    li
+                        span.head.rebar.toe
+                else
+                    li.tail
+                        span.tail.rebar.collar
+                each listedAnchors as |anchor i|
+                    unless anchor.isDeleted
+                        li.anchor
+                            span.anchor-distance-rebar-l = get anchor 'distance-a'
+                            span.anchor-number-l = get anchor 'number-a'
+                            span.instrument-pipe
+                            span.anchor-number-r = get anchor 'number-b'
+                            span.anchor-distance-rebar-r = get anchor 'distance-b'
+                if isCollar
+                    li
+                        span.head.rebar.collar
+                else
+                    li.tail
+                        span.tail.rebar.toe
+                li
+                    label.col-12.collar-label Borehole Collar

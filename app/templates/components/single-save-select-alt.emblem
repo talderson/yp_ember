@@ -1,0 +1,21 @@
+if isEditable
+    .editable-field
+        .form-group.row
+            .col-12
+                if isEditing
+                    select.form-control id=inputFieldId onchange={ action "selectNewValue" value="target.value"}
+                        each selectOptionsArray as |selectOption|
+                            option selected={is-equal selectOption.key newValue} value="#{selectOption.key}" = selectOption.value
+                    span.save click="'save' parentObject"
+                        i.fa.fa-check.has-tooltip-info aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Save"
+                    span.cancel click="'cancel' object"
+                        i.fa.fa-times.has-tooltip-info aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Cancel"
+                else
+                    span.text.has-tooltip-info click="edit" data-toggle="tooltip" data-placement="right" title="Edit"
+                        = get object field
+else
+    .non-editable-field
+        .form-group.row
+            .col-12
+                span.text.has-tooltip-info click="edit" data-toggle="tooltip" data-placement="right" title="Read only"
+                    = get object field

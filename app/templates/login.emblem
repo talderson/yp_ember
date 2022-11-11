@@ -1,0 +1,25 @@
+= page-title "Login"
+a 
+    if (@model.licence.isValid)
+        | true
+div.login-page
+    div.login
+        div.login-head
+            h3 VantagePoint Login
+        div.login-body
+            form onsubmit={action 'authenticate'}
+                div.form-row
+                    label for="id_username" Login
+                    input id='id_username' autocomplete="username" value=identification onchange={ this.updateIdentification }
+                div.form-row
+                    label for="id_password" Password
+                    input id='id_password' autocomplete="current-password" type='password' value=password onchange={ this.updatePassword }
+                div.submit-row
+                    button id='id_button' type="submit" Login
+                    if loading
+                        div.center class="pulse_loader " style="width: auto; padding-top:5px;"
+                if errorMessage
+                    p
+                        errorMessage
+        div.login-foot
+= outlet

@@ -1,0 +1,61 @@
+unless @isInst
+    td = link-to "edit-instrument" @tableRow.instrument.id: @tableRow.instrument.id
+if (is-equal @tableRow.metric "DISP")
+    td Displacement
+if (is-equal @tableRow.metric "VEL")
+    td Velocity
+if (is-equal @tableRow.metric "ACC")
+    td Acceleration
+if (is-equal @tableRow.metric "TIME")
+    td Latest Response
+
+if (eq @tableRow.direction "GT")
+    td
+        | &gt;=
+if (eq @tableRow.direction "LT")
+    td
+        | &lt;=
+td = @tableRow.value
+
+if (is-equal @tableRow.severity "LOW")
+    td Low
+if (is-equal @tableRow.severity "MED")
+    td Medium
+if (is-equal @tableRow.severity "HIGH")
+    td High
+
+if (is-equal @tableRow.response "VP")
+    td VP Display
+if (is-equal @tableRow.response "EMAIL")
+    td Send Email
+if (is-equal @tableRow.response "SMS")
+    td Send SMS Msg
+if (is-equal @tableRow.response "TRIG")
+    td Trigger Alarm
+
+if @tableRow.isActive
+    if @tableRow.isTriggered
+        td
+            | ALERT
+    else
+        td
+            | Active
+else
+    td
+        | Inactive
+
+td.crud-td
+    span.crud.remove click="'toggleRowDeleteConfirmationDialog' tableRow.id"
+        <FaIcon @icon="trash" />
+    div class="delete-confirmation {{active-class (get isRowDeleteConfirmationDialog tableRow.id)}}"
+        span.crud-delete-message
+            span
+                small All associated data
+                small will be deleted too!
+        span.crud-delete-action.crud-delete-confirm click="'remove' model.instruments tableRow"
+            | Yes
+        span.crud-delete-action.crud-delete-cancel click="'toggleRowDeleteConfirmationDialog' tableRow.id"
+            | No
+td
+    = link-to "edit-alert" @tableRow.id
+        <FaIcon @icon="pencil-alt" />

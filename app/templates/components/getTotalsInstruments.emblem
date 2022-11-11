@@ -1,0 +1,14 @@
+td 
+    td
+        td
+            a style="font-size: 1rem; color: black; font-family: Trebuchet MS" href="/instruments" title="List of all instruments" Total:
+        td
+            span style="margin-left: 5px; font-size: 1rem;" = @model.total
+    td 
+        td style="vertical-align:middle"
+            div id="circleSmall" style="margin-left: 2rem; margin-right: 3px; margin-top: 2px;"
+        td
+            a style="font-size: 1rem; color: black; font-family: Trebuchet MS" href="/instruments/?search=active" title="List of active instruments" Active:
+        td
+            span style="margin-left: 5px; font-size: 1rem;=" = @model.active
+    

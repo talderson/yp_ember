@@ -1,0 +1,56 @@
+= outlet
+
+.container-fluid
+    .mt-1
+        h3 Keys
+
+    = key-import-form
+    table.table.table-striped.responsive-table.settings-table
+        thead
+            tr
+                th Company
+                th Start Date
+                th End Date
+                th # Instruments
+                th Version
+                th Modules
+                th Active
+                th Delete
+
+        tbody
+            each model.licenceKeys as |key|
+                tr
+                    td.noWrap data-title="#{key.companyName}"
+                        label.col-12.col-form-label for="id" #{key.companyName}
+                    td.noWrap data-title="#{key.startDate}"
+                        label.col-12.col-form-label for="id" #{key.startDate}
+                    td.noWrap data-title="#{key.endDate}"
+                        label.col-12.col-form-label for="id" #{key.endDate}
+                    td.noWrap data-title="#{key.numInst}"
+                        if (eq key.numInst 0)
+                            label.col-12.col-form-label Unlimited
+                        else
+                            label.col-12.col-form-label for="id" #{key.numInst}
+                    td.noWrap data-title="#{key.softwareVersion}"
+                        label.col-12.col-form-label for="id" #{key.softwareVersion}
+                    td.noWrap data-title="#{key.modules}"
+                        if (get activeModules key.id)
+                            label.col-12.col-form-label.has-tooltip-info.link style="" for="id" title="{{get tooltip key.id}}" [Modules]
+                        else
+                            label.col-12.col-form-label for="id" API Only
+                    td.noWrap data-title="#{key.isValidKey}"
+                        if (get activeKeys key.id)
+                            span style="font-size:25px;color:green" &#10003;
+                        else
+                            span style="font-size:25px;color:red" &#10005;
+                    td.noWrap data-title="#{key.id}" style="text-align:center;"
+                        if (not(get isRowDeleteConfirmationDialog key.id))
+                            span.crud.remove click="'toggleRowDeleteConfirmationDialog' key.id" style="float:left;margin-top: 0.5rem"
+                                <FaIcon @icon="trash" />
+                        if (get isRowDeleteConfirmationDialog key.id)
+                            div class="delete-confirmation active" style="position:relative;min-width:0px;float:left;padding-right: 0"
+                                span.crud-delete-action.crud-delete-confirm click="'remove' model.licenceKeys key" 
+                                    | Yes
+                                span.crud-delete-action.crud-delete-cancel click="'toggleRowDeleteConfirmationDialog' key.id"
+                                    | No
+    .pb-1

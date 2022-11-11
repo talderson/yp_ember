@@ -1,0 +1,26 @@
+$brand-primary: #4A6A9C;
+
+.navbar {
+    border-bottom: 1px solid #4A6A9C;
+    @media only screen and (max-width:768px) {
+        border: none;
+    }
+}
+    .navbar-nav {
+        .nav-item {
+            padding: 0;
+        }
+        .nav-link {
+            padding: .425rem .5rem;
+            &.active {
+                background: $brand-primary;
+                color: #fff !important;
+            }
+            &.disabled, &:hover {
+                color: #c2c2c2 !important;
+            }
+        }
+        .float-lg-right {
+            padding-right: 0;
+        }
+    }

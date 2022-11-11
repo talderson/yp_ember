@@ -1,0 +1,47 @@
+.th-sort {
+    margin-left: .3rem;
+    cursor: pointer;
+    color: #adadad;
+    &.active, &:hover {
+        color: $brand-primary;
+    }
+}
+
+span.sort-icons {
+    display: inline-block;
+    width: 11px;
+    height: 17px;
+    // border: 1px solid orange;
+    position: relative;
+    overflow: hidden;
+    line-height: 0;
+    padding: 0;
+    vertical-align: -4px;
+    &:before, &:after {
+        font: normal normal normal 14px/1 FontAwesome;
+        display: block;
+        position: absolute;
+        left: 0;
+        height: 4px;
+        width: 11px;
+        // border: 1px solid green;
+    }
+    &:before {
+        //content: "\f0de";
+        top: 0;
+    }
+    &:after {
+        //content: "\f0dd";
+        top: 2px;
+    }
+    &.sort-asc {
+        &:before {
+            color: $pastel-orange-deep !important;
+        }
+    }
+    &.sort-desc {
+        &:after {
+            color: $pastel-orange-deep !important;
+        }
+    }
+}

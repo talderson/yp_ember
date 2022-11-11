@@ -1,0 +1,17 @@
+<BsDropdown as |dd|>
+  <dd.button>{{@selected}}<span class="caret"></span></dd.button>
+  <dd.menu as |ddm|>
+      <ddm.item>
+        {{#link-to 'spatial-graphs.spatial-graph' instrumentId 'displacement-values' (query-params start_timestamp=null end_timestamp=null) class="dropdown-item"}}Displacement{{/link-to}}
+      </ddm.item>
+      <ddm.item>
+        {{#link-to 'spatial-graphs.spatial-graph' instrumentId 'velocity-values' (query-params start_timestamp=null end_timestamp=null) class="dropdown-item"}}Velocity{{/link-to}}
+      </ddm.item>
+      <ddm.item>
+        {{#link-to 'spatial-graphs.spatial-graph' instrumentId 'strain-values' (query-params start_timestamp=null end_timestamp=null) class="dropdown-item"}}Strain{{/link-to}}
+      </ddm.item>
+      <ddm.item>
+        {{#link-to 'spatial-graphs.spatial-graph' instrumentId 'strain-rate-values' (query-params start_timestamp=null end_timestamp=null) class="dropdown-item"}}Strain Rate{{/link-to}}
+      </ddm.item>
+  </dd.menu>
+</BsDropdown>

@@ -1,0 +1,36 @@
+
+.row
+    .col
+        a Total Readings: 
+        a = @displacementData.meta.pagination.total
+    .col
+        .pull-right
+            = pagination-links meta=@displacementData.meta routeLink='raw-data' extraQueryParams=(hash paginate_from_zero='') class="text-md-right"
+if isVisibleCreateNewForm
+    .row
+        .col.details.newRecordDetails
+            = pack/create-new-raw-data-value-form isVisibleCreateNewForm=isVisibleCreateNewForm isVisibleReadingCreated=isVisibleReadingCreated instrumentId=@instrument.id instrumentType=@instrument.instrumentType instrumentAnchors=anchorDistances dateFormat='YYYY-MM-DD HH:mm:ss' setProp=setProp
+if isVisibleReadingCreated
+    .row
+        .col
+            | Reading Added!
+.row
+    .col
+        table.table.table-striped.responsive-table
+            thead
+                tr
+                    th Date
+                    each anchorDistances as |anchor|
+                        th = anchor
+                    th Temperature
+                    th.add-new-item id="add-new"
+                        span.add-new click="'updateProperty' 'isVisibleCreateNewForm' 'true'"
+                            <FaIcon @icon="plus" />
+                            |  New
+            tbody
+                each @displacementData as |displacementValue index|
+                    = single-save-inputs-array-table-row-cells instrumentId=@instrument.id strokeLength=@instrument.strokeLength instrument=@instrument instrumentType=@instrument.instrumentType isWire=isWire isFine=false displacementValueObject=displacementValue displacementValuesModel=@displacementData temperatureValuesModel=@temperatureData inputType='text' fields='values' tableRowIndex=index isZeroTimestampClass=(if (is-equal @displacementValue.id (get-array-element @displacementData.meta 'closest-zero-timestamp') ) 'initialization-date' '') setProp=setProp
+.row
+    .col
+        .pull-right
+            = pagination-links meta=@displacementData.meta routeLink='raw-data' extraQueryParams=(hash paginate_from_zero='') class="text-md-right"

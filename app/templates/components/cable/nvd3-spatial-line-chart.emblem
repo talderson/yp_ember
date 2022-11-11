@@ -1,0 +1,6 @@
+.nvd3-chart-tooltip-container id=chartId
+    %svg.nvd3-spatial-line-chart-svg width="1100" height="450"
+
+    .mb-1
+
+    %svg.nvd3-spatial-line-chart-focus-svg width="1100" height="70"

@@ -1,0 +1,11 @@
+.empty-checkbox-title {
+    line-height: 1;
+    margin-bottom: 0;
+    .custom-control-description {
+        &:after {
+            display: block;
+            content: " .";
+            color: transparent;
+        }
+    }
+}

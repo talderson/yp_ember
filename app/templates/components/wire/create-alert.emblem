@@ -1,0 +1,325 @@
+table.table.table-striped.responsive-table style="padding-right: 3rem;"
+    tbody 
+        if isVisibleError
+            tr.details
+                td.td_details.error colspan="6"
+                    label.col-12.col-form-label for="error_message" There was an error creating the alert.
+                    if fieldError
+                        label.col-12.col-form-label id="error_message_details" A required field was not entered. Bolded fields are required.
+        tr.details.newRecordDetails 
+            td.td_details colspan="2"
+                table.row_details.form-inline
+                    tbody
+                        tr
+                            td
+                                label.col-12.col-form-label.bold title="Just for Notification." for="newAlertObjectSeverity" Alert Severity:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        select.form-control title="Just for Notification." id="newAlertSeverity" onchange={action (mut newAlertObject.severity) value="target.value"} 
+                                            option value="HIGH"
+                                                | High
+                                            option value="MED"
+                                                | Medium
+                                            option value="LOW"
+                                                | Low
+                        tr 
+                            td
+                                label.col-12.col-form-label.bold title="Alert creator's name" for="newInstrumentObjectType" Created By:
+                            td.input style="padding-top:5px;"
+                                .form-group.row
+                                    .col-12
+                                        input.form-control type="text" title="Alert creator's name" value=username oninput={action (mut newAlertObject.creator) value="target.value"} id="newAlertObjectCreatedBy"
+            td.td_details colspan="2"
+                table.row_details.form-inline
+                    tbody
+                        tr
+                            td
+                                label.col-12.col-form-label title="Alert must be cleared Manually" for="newAlertStaticDynamic" Static Alert:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        label.custom-control.custom-checkbox.empty-checkbox-title.mr-sm-2.has-tooltip-info data-toggle="tooltip" title="Alert must be cleared Manually" data-placement="right" data-offset="0 -7"
+                                            input title="Alert must be cleared Manually" type="checkbox" class="custom-control-input" change="staticChanged" id="newAlertStaticDynamic" checked=true
+                                            span.custom-control-indicator
+                                            span.custom-control-description.noselect
+                        tr
+                            td
+                                label.col-12.col-form-label for="newAlertEnabled" Alert Enabled:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        label.custom-control.custom-checkbox.empty-checkbox-title.mr-sm-2.has-tooltip-info data-toggle="tooltip" data-placement="right" data-offset="0 -7"
+                                            input type="checkbox" class="custom-control-input" change="activeChanged" id="newAlertEnabled" checked=true
+                                            span.custom-control-indicator
+                                            span.custom-control-description.noselect
+                        tr
+                            td
+                                label.col-12.col-form-label title="Will the action occur each check of the alerts, or only when it switches to Alerted" for="newAlertRepeat" Response Repeats:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        label.custom-control.custom-checkbox.empty-checkbox-title.mr-sm-2.has-tooltip-info data-toggle="tooltip" data-placement="right" data-offset="0 -7" 
+                                            input type="checkbox" title="Will the action occur each check of the alerts, or only when it switches to Alerted" class="custom-control-input" change="repeatChanged" id="newAlertRepeat" checked=false
+                                            span.custom-control-indicator
+                                            span.custom-control-description.noselect
+                        tr 
+                            td
+                                label.col-12.col-form-label title="If alert repeats, what is the minimum delay before it will repeat" for="newInstrumentObjectType" Repeats After (min):
+                            td.input style="padding-top:5px;"
+                                .form-group.row
+                                    .col-12
+                                        if (is-equal repeats true)
+                                            input.form-control type="text" value=repeatWindow title="If alert repeats, what is the minimum delay before it will repeat" oninput={action (mut newAlertObject.repeatWindow) value="target.value"} id="newAlertObjectRepeatDelay" disabled=false
+                                        else
+                                            input.form-control type="text" value=repeatWindow title="If alert repeats, what is the minimum delay before it will repeat" oninput={action (mut newAlertObject.repeatWindow) value="target.value"} id="newAlertObjectRepeatDelay" disabled=true
+
+
+            td.td_details colspan="2"
+                table.row_details.form-inline
+                    tbody
+                        tr
+                            td
+                                label.col-12.col-form-label title="Method for response when alert is triggered" for="newAlertObjectResponseType" Response Type:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        select.form-control title="Method for response when alert is triggered" id="newAlertResponse" onchange={action (mut newAlertObject.response) value="target.value"} 
+                                            option value="VP"
+                                                | Display Only
+                                            option value="EMAIL"
+                                                | E-Mail
+                                            option value="SMS"
+                                                | SMS (Text Message)
+                                            option value="TRIG" disabled=true
+                                                | Alarm
+                        tr
+                            td
+                                if (is-equal newAlertObject.response 'VP')
+                                    label.col-12.col-form-label title="Target recipient for alert response" for="newInstrumentObjectType" Target (None):
+                                if (is-equal newAlertObject.response 'EMAIL')
+                                    label.col-12.col-form-label.bold title="Target recipient for alert response" for="newInstrumentObjectType" Target (Address):
+                                if (is-equal newAlertObject.response 'SMS')
+                                    /label.col-12.col-form-label.bold title="Target recipient for alert response" for="newInstrumentObjectType" Target (Phone #):
+                                    a.bold href="https://kb.sandisk.com/app/answers/detail/a_id/17056/~/list-of-mobile-carrier-gateway-addresses" target="_blank" title="List of carrier SMS gateways" for="alertObjectTarget" Target (Phone #):
+                                if (is-equal newAlertObject.response 'TRIG')
+                                    label.col-12.col-form-label.bold title="Target recipient for alert response" for="newInstrumentObjectType" Target (IP addr):
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        if (is-equal newAlertObject.response 'VP' )
+                                            input.form-control type="text" title="Target recipient for alert response" value=newAlertObject.target oninput={action (mut newAlertObject.target) value="target.value"} id="newAlertObjectTarget" disabled=true
+                                        else if (is-equal newAlertObject.response 'TRIG')
+                                            input.form-control type="text" disabled=true title="Available in future release" value=newAlertObject.target oninput={action (mut newAlertObject.target) value="target.value"} id="newAlertObjectTarget" disabled=true
+                                        else if (is-equal newAlertObject.response 'SMS')
+                                            input.form-control type="text" placeholder="Number@Carrier" title="Format: number@gateway&#10;e.g. 9999999999@msg.telus.com" value=newAlertObject.target oninput={action (mut newAlertObject.target) value="target.value"} id="alertObjectTarget"
+                                        else
+                                            input.form-control type="text" title="Target recipient for alert response" value=newAlertObject.target oninput={action (mut newAlertObject.target) value="target.value"} id="newAlertObjectTarget"
+                        tr
+                            td
+                                label.col-12.col-form-label title="Additional message appended to an alert response"for="newInstrumentObjectType" Additional Message:
+                            td.input 
+                                .form-group.row
+                                    .col-12
+                                        if (is-equal newAlertObject.response 'VP')
+                                            input.form-control type="text" title="Additional message appended to an alert response" value=newAlertObject.message oninput={action (mut newAlertObject.message) value="target.value"} id="alertObjectMessage" disabled=true
+                                        else if (is-equal newAlertObject.response 'TRIG')
+                                            input.form-control type="text" title="Additional message appended to an alert response" value=newAlertObject.message oninput={action (mut newAlertObject.message) value="target.value"} id="alertObjectMessage" disabled=true                                        
+                                        else
+                                            input.form-control type="text" title="Additional message appended to an alert response" value=newAlertObject.message oninput={action (mut newAlertObject.message) value="target.value"} id="alertObjectMessage"
+        tr.details.newRecordDetails  
+            td.td_details colspan="2" 
+                table.row_details.form-inline
+                    tbody
+                        tr
+                            td
+                                label.col-12.col-form-label title="Anchor that is as a reference for this alert (default is Channel 0)" for="newAlertObjectAnchor" Reference Anchor:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        unless (is-equal newAlertObject.metric "TIME")
+                                            select.form-control title="Anchor that is as a reference for this alert (default is Channel 0)" id="newAlertRefAnchor" onchange={action (mut newAlertObject.refAnchor) value="target.value"}
+                                                each (range 0 channelCount) as |channel|
+                                                    option value="{{concat 'Ch' channel}}" {{concat 'Channel ' channel}}&nbsp;
+                                        else
+                                            select.form-control title="Anchor that is as a reference for this alert (default is Channel 0)" id="newAlertRefAnchor" onchange={action (mut newAlertObject.refAnchor) value="target.value"} disabled=true
+                                                option value="0" None
+            td.td_details colspan="2"
+                table.row_details.form-inline
+                    tbody
+                        tr
+                            td
+                                label.col-12.col-form-label title="Inverts data values" for="newAlertInvert" Inverted:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        unless (is-equal newAlertObject.metric "TIME")
+                                            label.custom-control.custom-checkbox.empty-checkbox-title.mr-sm-2.has-tooltip-info data-toggle="tooltip" data-placement="right" data-offset="0 -7"
+                                                input type="checkbox" class="custom-control-input" title="Inverts data values" change="invertChanged" id="newAlertInvert" checked=false
+                                                span.custom-control-indicator
+                                                span.custom-control-description.noselect
+                                        else
+                                            label.custom-control.custom-checkbox.empty-checkbox-title.mr-sm-2.has-tooltip-info data-toggle="tooltip" data-placement="right" data-offset="0 -7"
+                                                input type="checkbox" class="custom-control-input" title="Inverts data values" change="invertChanged" id="newAlertInvert" checked=false disabled=true
+                                                span.custom-control-indicator
+                                                span.custom-control-description.noselect
+
+            td.td_details colspan="2"
+                table.row_details.form-inline
+                    tbody
+                        tr
+                            td
+                                label.col-12.col-form-label title="Channels to test for this Alert" for="newAlertActiveChans" Active Channels:
+                            unless (is-equal newAlertObject.metric "TIME")
+                                td
+                                    select name="chan_select" title="Channels to test for this Alert" id="chan_select" multiple=true size=activeSize
+                                        each (range 0 channelCount) as |channel|
+                                            option value="{{concat 'Ch' channel}}" selected=true {{concat 'Channel ' channel}}&nbsp;
+                                td style="vertical-align: top;"
+                                    button id='activeToggleButton' title=activeLabel click="toggleActive" {{buttonSymbol}}
+                            else
+                                td
+                                    select name="chan_select" title="Channels to test for this Alert" id="chan_select" multiple=true size=activeSize disabled=true
+                                        each (range 0 channelCount) as |channel|
+                                            option value="{{concat 'Ch' channel}}" selected=false {{concat 'Channel ' channel}}&nbsp;
+                                td style="vertical-align: top;"
+                                    button id='activeToggleButton' title=activeLabel disabled=true click="toggleActive" {{buttonSymbol}}
+
+        tr.details.newRecordDetails
+            td.td_details colspan="2"
+                table.row_details.form-inline
+                    tbody
+                        tr
+                            td
+                                label.col-12.col-form-label.bold title="Metric used to determine if this alert will trigger" for="newAlertObjectMetric" Metric:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        select.form-control id="newAlertObjectMetric" title="Metric used to determine if this alert will trigger"onchange={action (mut newAlertObject.metric) value="target.value"} 
+                                            option value="DISP"
+                                                | Pressure
+                                            option value="TIME" title="Time since last message recieved."
+                                                | Latest Response
+            td.td_details colspan="2"
+                table.row_details.form-inline
+                    tbody
+                        tr
+                            td
+                                label.col-12.col-form-label.bold title="Direction used to determine if this alert will trigger" for="newAlertObjectDirection" Direction:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        unless (is-equal newAlertObject.metric "TIME")
+                                            select.form-control id="newAlertDirection" title="Direction used to determine if this alert will trigger" onchange={action (mut newAlertObject.direction) value="target.value"} 
+                                                option value="GT"
+                                                    | Greater Than (&gt;=)
+                                                option value="LT"
+                                                    | Less Than (&lt;=)
+                                        else
+                                            select.form-control id="newAlertDirection" title="Direction used to determine if this alert will trigger" onchange={action (mut newAlertObject.direction) value="target.value"} disabled=true
+                                                option value="GT"
+                                                    | Greater Than (&gt;=)
+            td.td_details colspan="2"
+                table.row_details.form-inline
+                    tbody
+                        tr
+                            td
+                                label.col-12.col-form-label.bold title="Value compared against selected active channel(s) value(s) to see if the alert should trigger" for="newInstrumentObjectType" Value:
+                            td
+                                input.form-control type="text" title="Value compared against selected active channel(s) value(s) to see if the alert should trigger" value=newAlertObject.value oninput={action (mut newAlertObject.value) value="target.value"} id="newAlertObjectValue"
+                            td
+                                if (is-equal newAlertObject.metric "DISP")
+                                    | kPa
+                                if (is-equal newAlertObject.metric "TIME")
+                                    | minutes
+
+        tr.details.newRecordDetails
+            td.td_details colspan="6"
+                hr
+                h6 Calculation Method
+        tr.details.newRecordDetails
+            td.td_details colspan="2"
+                table.row_details.form-inline
+                    tbody
+                        tr
+                            unless (is-equal newAlertObject.metric "TIME")
+                                td
+                                    label.col-12.col-form-label title="Method for choosing how alert will trigger" for="newAlertObjectMethod" Method:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            select.form-control title="Method for choosing how alert will trigger" id="newAlertInstrument" onchange={action (mut newAlertObject.method) value="target.value"} 
+                                                option value="IMM" title="Decide whether to trigger alarm based on the single most recent reading"
+                                                    | Immediate
+                                                option value="AVG" title="Decide whether to trigger alarm based on average values of window length"
+                                                    | Average
+                                                option value="SUS" title="Decide whether to trigger alarm by checking each (window length) most recent readings"
+                                                    | Sustained
+                            else
+                                td
+                                    label.col-12.col-form-label title="Method for choosing how alert will trigger" for="newAlertObjectMethod" Method:
+                                td.input
+                                    .form-group.row
+                                        .col-12
+                                            select.form-control title="Method for choosing how alert will trigger" id="newAlertInstrument" onchange={action (mut newAlertObject.method) value="target.value"} disabled=true
+                                                option value="IMM" title="Decide whether to trigger alarm based on the single most recent reading"
+                                                    | Immediate
+            td.td_details colspan="2"
+                table.row_details.form-inline
+                    tbody
+                        tr
+                            td
+                                label.col-12.col-form-label title="Method for selecting how many recent readings will be checked" for="newAlertObjectWindow" Window:
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        unless (is-equal newAlertObject.method "IMM")
+                                            select.form-control id="newAlertInstrument" title="Method for selecting how many recent readings will be checked" onchange={action (mut newAlertObject.windowType) value="target.value"}
+                                                option value="NR"
+                                                    | Number of Readings
+                                                option value="LT"
+                                                    | Length of Time
+                                        else
+                                            select.form-control id="newAlertInstrument" title="Method for selecting how many recent readings will be checked" onchange={action (mut newAlertObject.windowType) value="target.value"} disabled=true
+                                                option value="NR"
+                                                    | Number of Readings
+            td.td_details colspan="2"
+                table.row_details.form-inline
+                    tbody
+                        tr
+                            td
+                                if (is-equal newAlertObject.windowType "NR")
+                                    if (is-equal newAlertObject.method "SUS")
+                                        label.col-12.col-form-label for="newInstrumentObjectType" title="Number of most recent readings to check if alert should be triggered" Window Length (# Readings):
+                                    else if (is-equal newAlertObject.method "AVG")
+                                        label.col-12.col-form-label for="newInstrumentObjectType" title="Number of most readings to check if average should trigger alert" Window Length (# Readings):
+                                    else 
+                                        label.col-12.col-form-label for="newInstrumentObjectType" title="Check most recent reading to see if alert should trigger" Window Length (# Readings):
+                                else
+                                    if (is-equal newAlertObject.method "AVG")
+                                        label.col-12.col-form-label for="newInstrumentObjectType" title="Number of most recent minutes to check if average should trigger alert" Window Length (# Readings):
+                                    else
+                                        label.col-12.col-form-label for="newInstrumentObjectType" title="Number of most recent minutes to check if alert should trigger" Window Length (Seconds):
+                            td.input
+                                .form-group.row
+                                    .col-12
+                                        unless (is-equal newAlertObject.method "IMM")
+                                            if (is-equal newAlertObject.windowType "NR")
+                                                unless (is-equal newAlertObject.method "SUS")
+                                                    input.form-control type="text" title="Number of most recent readings to check if alert should be triggered" value=newAlertObject.windowLength oninput={action (mut newAlertObject.windowLength) value="target.value"} id="newAlertObjectWindowLength"
+                                                else
+                                                    input.form-control type="text" title="Number of most readings to check if average should trigger alert" value=newAlertObject.windowLength oninput={action (mut newAlertObject.windowLength) value="target.value"} id="newAlertObjectWindowLength"
+                                            else
+                                                if (is-equal newAlertObject.method "AVG")
+                                                    input.form-control type="text" title="Number of most readings to check if average should trigger alert" value=newAlertObject.windowLength oninput={action (mut newAlertObject.windowLength) value="target.value"} id="newAlertObjectWindowLength"
+                                                else
+                                                    input.form-control type="text" title="Number of most recent minutes to check if alert should trigger" value=newAlertObject.windowLength oninput={action (mut newAlertObject.windowLength) value="target.value"} id="newAlertObjectWindowLength"
+                                        else
+                                            input.form-control type="text" value=1 oninput={action (mut newAlertObject.windowLength) value="1"} id="newAlertObjectWindowLength" disabled=true
+        tr.details.newRecordDetails
+            td.td_details colspan="5"
+        tr.details.newRecordDetails
+            td.add-new-item id="add-new" colspan="5" style="padding-bottom:5px"
+                span = createMessage
+                span.add-new click="createAlert"
+                    |  Create

@@ -1,0 +1,206 @@
+table style="width: 100%"
+    tbody
+        tr.details
+            td.td_details colspan="6"
+                .row
+                    .col
+                        h5 Data:
+                .row
+                    .col-sm-auto.inst-buttons
+                        span.add-new{action "viewData" @instrument.id}
+                            <FaIcon @icon="database" />
+                            |  View Data
+                    if hasGraphs
+                        .col-sm-auto.inst-buttons
+                            span.add-new{action "tGraph" @instrument.id}
+                                <FaIcon @icon="chart-line" />
+                                |  Temporal Graph
+                    if hasGraphs
+                        if (gt instrument.channelsNum 2)
+                            .col-sm-auto.inst-buttons
+                                span.add-new{action "sGraph" @instrument.id}
+                                    <FaIcon @icon="chart-area" />
+                                    |  Spatial Graph
+                hr
+        if hasAlerts
+            tr.details
+                td.td_details colspan="6"
+                    .row
+                        .col
+                            h5 Alerts:
+                    .row
+                        .col                
+                            = alerts-list isInst=true instrumentId=instrument.id alerts=instrument.alerts
+                    hr
+        tr.details
+            td
+                h5 Properties:
+
+        tr.details
+            td.td_details colspan="2" style="vertical-align: top; margin-bottom: 1rem;"
+                table.row_details.form-inline style="justify-content: left;"
+                    tbody
+                        tr
+                            td
+                                label.col-12.col-form-label for="channelsNum" Channels:
+                            td.input
+                                = single-save-input object=instrument inputType='text' field='channelsNum' isEditable=false
+                        tr
+                            td
+                                label.col-12.col-form-label for="name" Name:
+                            td.input
+                                = single-save-input object=instrument inputType='text' field='name' stopEditField=(action 'stopEditField') editField=(action 'editField')
+                        tr
+                            td
+                                label.col-12.col-form-label for="project" Project:
+                            td.input
+                                = single-save-input object=instrument inputType='text' field='project' stopEditField=(action 'stopEditField') editField=(action 'editField')
+                        tr
+                            td
+                                label.col-12.col-form-label for="location" Location:
+                            td.input
+                                = single-save-input object=instrument inputType='text' field='location' stopEditField=(action 'stopEditField') editField=(action 'editField')
+                        tr
+                            td
+                                label.col-12.col-form-label for="coordinates" Coordinates:
+                            td.input
+                                = single-save-geo-input object=instrument east=instrument.east north=instrument.north depth=instrument.depth stopEditField=(action 'stopEditField') editField=(action 'editField')
+                        tr
+                            td
+                                label.col-12.col-form-label for="azimuth" Azimuth:
+                            td.input
+                                = single-save-input object=instrument inputType='text' field='azimuth' stopEditField=(action 'stopEditField') editField=(action 'editField')
+                        tr
+                            td
+                                label.col-12.col-form-label for="dip" Dip:
+                            td.input
+                                = single-save-input object=instrument inputType='text' field='dip' stopEditField=(action 'stopEditField') editField=(action 'editField')
+                        tr
+                            td
+                                label.col-12.col-form-label for="level" Level:
+                            td.input
+                                = single-save-input object=instrument inputType='text' field='level' stopEditField=(action 'stopEditField') editField=(action 'editField')
+                        tr
+                            td
+                                label.col-12.col-form-label for="borehole" Borehole:
+                            td.input
+                                = single-save-input object=instrument inputType='text' field='borehole' stopEditField=(action 'stopEditField') editField=(action 'editField')
+                        tr
+                            td
+                                label.col-12.col-form-label for="zeroTimestamp" Zero timestamp:
+                            td.input
+                                = single-save-datetime-picker object=instrument field='zeroTimestamp' format='YYYY-MM-DD HH:mm:ss' showClear=true stopEditField=(action 'stopEditField') editField=(action 'editField')
+                        tr
+                            td
+                                label.col-12.col-form-label for="installDate" Install date:
+                            td.input
+                                = single-save-datetime-picker object=instrument field='installDate' format='YYYY-MM-DD HH:mm:ss' showClear=true stopEditField=(action 'stopEditField') editField=(action 'editField')
+                        tr
+                            td
+                                label.col-12.col-form-label for="installedBy" Installed by:
+                            td.input
+                                = single-save-input object=instrument inputType='text' field='installedBy' stopEditField=(action 'stopEditField') editField=(action 'editField')
+                        tr
+                            td
+                                label.col-12.col-form-label for="purpose" Purpose:
+                            td.input
+                                = single-save-input object=instrument inputType='text' field='purpose' stopEditField=(action 'stopEditField') editField=(action 'editField')
+                        tr
+                            td
+                                label.col-12.col-form-label for="notes" Notes:
+                            td.input
+                                = single-save-input object=instrument inputType='textarea' field='notes' stopEditField=(action 'stopEditField') editField=(action 'editField')
+            td.td_details colspan="3" style="vertical-align: top;"
+                table.row_details.form-inline
+                    tbody
+                        tr
+                            td
+                                label.col-12.col-form-label for="headAt" Head at:
+                            td.input
+                                = single-save-select selectOptions=headAts id="headAt" selectOptionsKyes="id,title" object=instrument.headAt parentObject=instrument field='title' valueSource='id' inputFieldId='headAt' stopEditField=(action 'stopEditField') editField=(action 'editField')
+                        tr
+                            td
+                                label.col-12.col-form-label for="instrumentLength" Length (m):
+                            td.input
+                                = single-save-input object=instrument inputType='text' field='instrumentLength' stopEditField=(action 'stopEditField') editField=(action 'editField')
+                        tr
+                            td
+                                label.col-12.col-form-label for="strokeLength" Stroke Length (mm):
+                            td.input
+                                = single-save-input object=instrument inputType='text' field='strokeLength' stopEditField=(action 'stopEditField') editField=(action 'editField')
+                        tr
+                            td
+                                label.col-12.col-form-label for="referenceAnchor" Reference Anchor:
+                            td.input
+                                = single-save-input object=instrument inputType='text' field='referenceAnchor' stopEditField=(action 'stopEditField') editField=(action 'editField')
+                        tr
+                            td
+                                label.col-12.col-form-label for="bulbed" Bulbed:
+                            td.input
+                                = single-save-checkbox object=instrument field='bulbed'
+                        tr
+                            td
+                                label.col-12.col-form-label for="plated" Plated:
+                            td.input
+                                = single-save-checkbox object=instrument field='plated'
+                        tr
+                            td
+                                label.col-12.col-form-label for="active" Active:
+                            td.input
+                                = single-save-checkbox object=instrument id="activeCheck" field='active'
+                        tr
+                            td <br />
+                        tr
+                            td
+                                label.col-12.col-form-label for="elasticLimitPct" Elastic Limit strain (%):
+                            td.input
+                                = single-save-input-numeric object=instrument inputType='text' field='elasticLimitPct' update=(action 'updatePage') stopEditField=(action 'stopEditField') editField=(action 'editField')
+                        tr
+                            td
+                                label.col-12.col-form-label for="ultimateLimitPct" Ultimate Limit strain (%):
+                            td.input
+                                = single-save-input-numeric object=instrument inputType='text' field='ultimateLimitPct' stopEditField=(action 'stopEditField') editField=(action 'editField')
+                        tr
+                            td
+                                label.col-12.col-form-label for="elasticLimitFce" Elastic Limit force (kN):
+                            td.input
+                                = single-save-input-numeric object=instrument inputType='text' field='elasticLimitFce' update=(action 'updatePage') stopEditField=(action 'stopEditField') editField=(action 'editField')
+                        tr
+                            td
+                                label.col-12.col-form-label for="ultimateLimitFce" Ultimate Limit force (kN):
+                            td.input
+                                = single-save-input-numeric object=instrument inputType='text' field='ultimateLimitFce' stopEditField=(action 'stopEditField') editField=(action 'editField')
+                        tr
+                            td
+                                label.col-12.col-form-label for="instrumentStiffness" Stiffness (kN/%):
+                            td.input
+                                = single-save-input object=instrument inputType='text' field='instrumentStiffness' isEditable=false
+
+            td.td_details colspan="3" style="vertical-align: top;"
+                table.row_details.form-inline
+                    tbody
+                        tr
+                            td
+                                label.col-12.col-form-label Nodes:
+                            td.input
+                                = single-save-instrument-anchors object=@instrument.anchors headAt=instrument.headAt.id channelsNum=instrument.channelsNum stopEditField=(action 'stopEditField') editField=(action 'editField')
+
+        
+        tr.details.newRecordDetails
+            td.td_details colspan="5"
+        tr.details.newRecordDetails
+            td.add-new-item colspan="5"
+            td.add-new-item
+                span.add-new click="saveInstrument"
+                    |  Return
+        //     td.add-new-item colspan="5"
+            
+        // tr.details.newRecordDetails
+        //     td.td_details colspan="5"
+        // tr.details.newRecordDetails
+        //     td.add-new-item colspan="5"
+        //     td.add-new-item id="add-new" style="padding-bottom:5px"
+        //         span = saveMessage
+        //         span.add-new click="saveAlert"
+        //             |  Save
+

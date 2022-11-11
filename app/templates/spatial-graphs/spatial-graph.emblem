@@ -1,0 +1,38 @@
+= outlet
+
+.mb-1
+    .row
+        .col-md-12
+            if (eq @model.instrument.instrumentTypeID 1)
+                = pack/nvd3-spatial-line-chart fullRangeChartData=@model.fullRangeData zoomChartData=@model.zoomData instrument=@model.instrument chartData=@model.graphs seismicEvents=@model.seismicEvents blastEvents=@model.blastEvents updateProperties=(action "updateProperties") getQueryParams=(action "getQueryParams") setChart=(action "setChart") setData=(action "setData")
+            if (eq @model.instrument.instrumentTypeID 2)
+                = cable/nvd3-spatial-line-chart fullRangeChartData=@model.fullRangeData zoomChartData=@model.zoomData instrument=@model.instrument chartData=@model.graphs seismicEvents=@model.seismicEvents blastEvents=@model.blastEvents updateProperties=(action "updateProperties") getQueryParams=(action "getQueryParams") setChart=(action "setChart") setData=(action "setData")
+            if (eq @model.instrument.instrumentTypeID 3)
+                = rebar/nvd3-spatial-line-chart fullRangeChartData=@model.fullRangeData zoomChartData=@model.zoomData instrument=@model.instrument chartData=@model.graphs seismicEvents=@model.seismicEvents blastEvents=@model.blastEvents updateProperties=(action "updateProperties") getQueryParams=(action "getQueryParams") setChart=(action "setChart") setData=(action "setData")
+            if (eq @model.instrument.instrumentTypeID 4)
+                = pack/nvd3-spatial-line-chart fullRangeChartData=@model.fullRangeData zoomChartData=@model.zoomData instrument=@model.instrument chartData=@model.graphs seismicEvents=@model.seismicEvents blastEvents=@model.blastEvents updateProperties=(action "updateProperties") getQueryParams=(action "getQueryParams") setChart=(action "setChart") setData=(action "setData")
+            if (eq @model.instrument.instrumentTypeID 5)
+                = pack/nvd3-spatial-line-chart fullRangeChartData=@model.fullRangeData zoomChartData=@model.zoomData instrument=@model.instrument chartData=@model.graphs seismicEvents=@model.seismicEvents blastEvents=@model.blastEvents updateProperties=(action "updateProperties") getQueryParams=(action "getQueryParams") setChart=(action "setChart") setData=(action "setData")
+            if (eq @model.instrument.instrumentTypeID 6)
+                | BluTilt
+            if (eq @model.instrument.instrumentTypeID 7)
+                = slough/nvd3-spatial-line-chart fullRangeChartData=@model.fullRangeData zoomChartData=@model.zoomData instrument=@model.instrument chartData=@model.graphs seismicEvents=@model.seismicEvents blastEvents=@model.blastEvents updateProperties=(action "updateProperties") getQueryParams=(action "getQueryParams") setChart=(action "setChart") setData=(action "setData")
+            if (eq @model.instrument.instrumentTypeID 8)
+                = thermo/nvd3-spatial-line-chart fullRangeChartData=@model.fullRangeData zoomChartData=@model.zoomData instrument=@model.instrument chartData=@model.graphs seismicEvents=@model.seismicEvents blastEvents=@model.blastEvents updateProperties=(action "updateProperties") getQueryParams=(action "getQueryParams") setChart=(action "setChart") setData=(action "setData")
+            if (eq @model.instrument.instrumentTypeID 9)
+                = piezo/nvd3-spatial-line-chart fullRangeChartData=@model.fullRangeData zoomChartData=@model.zoomData instrument=@model.instrument chartData=@model.graphs seismicEvents=@model.seismicEvents blastEvents=@model.blastEvents updateProperties=(action "updateProperties") getQueryParams=(action "getQueryParams") setChart=(action "setChart") setData=(action "setData")
+            if (eq @model.instrument.instrumentTypeID 10)
+                = hid/nvd3-spatial-line-chart fullRangeChartData=@model.fullRangeData zoomChartData=@model.zoomData instrument=@model.instrument chartData=@model.graphs seismicEvents=@model.seismicEvents blastEvents=@model.blastEvents updateProperties=(action "updateProperties") getQueryParams=(action "getQueryParams") setChart=(action "setChart") setData=(action "setData")
+            if (eq @model.instrument.instrumentTypeID 11)
+                = pack/nvd3-spatial-line-chart fullRangeChartData=@model.fullRangeData zoomChartData=@model.zoomData instrument=@model.instrument chartData=@model.graphs seismicEvents=@model.seismicEvents blastEvents=@model.blastEvents updateProperties=(action "updateProperties") getQueryParams=(action "getQueryParams") setChart=(action "setChart") setData=(action "setData")
+            if (eq @model.instrument.instrumentTypeID 12)
+                = wire/nvd3-spatial-line-chart fullRangeChartData=@model.fullRangeData zoomChartData=@model.zoomData instrument=@model.instrument chartData=@model.graphs seismicEvents=@model.seismicEvents blastEvents=@model.blastEvents updateProperties=(action "updateProperties") getQueryParams=(action "getQueryParams") setChart=(action "setChart") setData=(action "setData")
+            if (eq @model.instrument.instrumentTypeID 13)
+                = adict/nvd3-spatial-line-chart fullRangeChartData=@model.fullRangeData zoomChartData=@model.zoomData instrument=@model.instrument chartData=@model.graphs seismicEvents=@model.seismicEvents blastEvents=@model.blastEvents updateProperties=(action "updateProperties") getQueryParams=(action "getQueryParams") setChart=(action "setChart") setData=(action "setData")
+            if (eq @model.instrument.instrumentTypeID 14)
+                | Analog
+            if (eq @model.instrument.instrumentTypeID 15)
+                | BluVibe
+            if (eq @model.instrument.instrumentTypeID 16)
+                = micro/nvd3-spatial-line-chart fullRangeChartData=@model.fullRangeData zoomChartData=@model.zoomData instrument=@model.instrument chartData=@model.graphs seismicEvents=@model.seismicEvents blastEvents=@model.blastEvents updateProperties=(action "updateProperties") getQueryParams=(action "getQueryParams") setChart=(action "setChart") setData=(action "setData")
+.mb-1
