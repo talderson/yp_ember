@@ -28,4 +28,5 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: yieldpointadmin/yp_ember_dev:latest
+          
+          tags: yieldpointdev/yieldpointadmin:yp_ember_dev
