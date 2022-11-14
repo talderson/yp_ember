@@ -302,7 +302,7 @@ export default Ember.Component.extend({
 
     yAxisLegend: Ember.computed('chartDataModelName', function() {
         let chartDataModelName = this.get('chartDataModelName');
-        let promise = this.get('store').query('measurement', {title: chartDataModelName.substr(0, chartDataModelName.lastIndexOf('-')).replace('-','_') });
+        let promise = this.get('store').queryRecord('measurement', {title: chartDataModelName.substr(0, chartDataModelName.lastIndexOf('-')).replace('-','_') });
         return promise;
     }),
 
@@ -320,18 +320,18 @@ export default Ember.Component.extend({
             zoomChartSVG = d3.select('#' + _this.get('chartId') + ' svg.nvd3-temporal-line-chart-svg'),
             fullRangeChartSVG = d3.select('#' + _this.get('chartId') + ' svg.nvd3-temporal-line-chart-focus-svg'),
             yAxisLegend = this.get('yAxisLegend'),
-            apiCallsPromises = [yAxisLegend]
+            apiCallsPromises = yAxisLegend
         ;
 
         //console.log(vibeEventsArray);
 
         // draw zoomChart only after yAxis label is fetched
-        Ember.RSVP.Promise.all(apiCallsPromises).then(function(results){
+        Ember.RSVP.Promise.all([apiCallsPromises]).then(function(results){
             //code _this must be executed only after all of the promises in apiCallsPromises is resolved
             //console.log("rendering graph...");
             let title = "";
             if (yAxisLegend) {
-                yAxisLegend = yAxisLegend.get('firstObject');
+                yAxisLegend = yAxisLegend;//.get('firstObject');
                 
                 //get pretty chart name if chart has multiple parts to it
                 let type = _this.instrument.get('instrumentTypeID').toString();
